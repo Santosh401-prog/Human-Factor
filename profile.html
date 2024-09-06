@@ -3,18 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="group-27">
-    <title>My Profile</title>
+    <title>Patient Profile | CaRe Web Service</title>
+    <link rel="stylesheet" href="test.css">
 </head>
 <body>
-    <header><h1>My Profile</h1></header>
-    <nav>
-            <ul>
-                <li><a href="profile.html">Dashboard</a></li>
-                <li><a href="journal.html">Journal Entries</a></li>
-                <li><a href="history.html">History</a></li>
-               
+    <header>
+        <h1>Patient Profile</h1>
+    </header>
 
+    <main>
+        <!-- Patient Details -->
+        <section>
+            <h2>Profile Details</h2>
+            <div class="profile-info">
+                <img src="profile.jpg" alt="Patient Photo" class="profile-photo">
+                <p><strong>Name:</strong> Hawa</p>
+                <p><strong>Address:</strong> 6 Flecher Street</p>
+                <p><strong>Phone Number:</strong> +61 424 498 332</p>
+                <p><strong>Email Address:</strong> Hawa@gmail.com</p>
+            </div>
+        </section>
+
+        <!-- Set and Display Goal for This Week -->
+        <section>
+            <h2>Set a Goal for This Week</h2>
+            <form id="goalForm">
+                <input type="text" id="goalInput" placeholder="Enter your weekly goal" required>
+                <button type="submit">Set Goal</button>
+            </form>
+            <p><strong>Goal for this week:</strong> <span id="currentGoal">No goal set yet.</span></p>
+        </section>
+
+        <!-- Last Week's Activities -->
+        <section>
+            <h2>Activities from Last Week</h2>
+            <ul id="last-week-activities">
+                <!-- Activities will be populated here -->
             </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CaRe Web Service</p>
+    </footer>
+
+    <script src="profile.js"></script>
+    <button onclick="goBack()">Go Back</button>
+
+    <script>
+    function goBack() {
+        window.history.back(); // This will go to the previous page in browser history
+    }
+</script>
 </body>
 </html>
