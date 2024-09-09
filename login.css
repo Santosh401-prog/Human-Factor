@@ -1,0 +1,86 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #333;
+}
+
+.login-container {
+    background-color: white;
+    padding: 40px 50px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 360px;
+    box-sizing: border-box;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* Adds padding and border to the element's total width and height */
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #0056b3; /* Changes border color on focus */
+    outline: none; /* Removes the default focus outline */
+}
+
+.form-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-actions button {
+    padding: 12px 25px;
+    font-size: 16px;
+    color: white;
+    background-color: #0056b3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-actions button:hover {
+    background-color: #004494; /* Darkens the button on hover */
+}
+
+.form-actions a {
+    display: inline-block;
+    margin-top: 12px;
+    color: #0056b3;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.form-actions a:hover {
+    color: #004494; /* Darkens the text on hover */
+    text-decoration: underline;
+}
