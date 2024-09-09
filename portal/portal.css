@@ -17,7 +17,7 @@ body {
 .sidebar {
     background-color: #02475e;
     color: white;
-    width: 300px; /* Increased width */
+    width: 500x; 
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -63,7 +63,7 @@ body {
     flex-grow: 1;
     padding: 20px;
     background-color: white;
-    margin-left: 300px; /* Adjusted for new sidebar width */
+    margin-left: 300px; 
 }
 
 .header h2 {
