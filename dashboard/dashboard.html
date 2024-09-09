@@ -3,41 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Dashboard</title>
+    <title>Patient dashboard</title>
     <link rel="stylesheet" href="dash.css">
 </head>
 <body>
     <header class="header">
-        <h1>Therapist Dashboard</h1>
+        <h1>Therapist Portal Dashboard</h1>
     </header>
     <div class="main-container">
         <aside class="sidebar">
             <ul>
-                <li><a href="#appointments">Appointments</a></li>
-               <li><a href="#patients">Clients</a></li>
-                <li><a href="#resources">Resources</a></li>
+                <li><a href="#patientdetails">Patient Summary</a></li>
+                <li><a href="#creategroup">Group Management</a></li>
+                <li><a href="#notes">Patient Notes</a></li>
             </ul>
         </aside>
         <section class="content">
-            <div id="appointments" class="card">
-                <h2>Today's Appointments</h2>
-                <ul>
-                    <li>10:00 AM - John Doe</li>
-                    <li>12:00 PM - Jane Smith</li>
-                    <li>03:00 PM - Alice Johnson</li>
-                </ul>
+            <!--  Summary part-->
+            <div id="patientdetails" class="card">
+                <h2>Patient Summary</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>  
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>John</td>
+                            <td>Doe</td>
+                            <td>john.doe@example.com</td>
+                            <td><a href="#">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jane</td>
+                            <td>Smith</td>
+                            <td>jane.smith@example.com</td>
+                            <td><a href="#">View Details</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div id="clients" class="card">
-                <h2>Clients</h2>
-                <ul>
-                    <li>John Doe - <a href="#">View Details</a></li>
-                    <li>Jane Smith - <a href="#">View Details</a></li>
-                    <li>Alice Johnson - <a href="#">View Details</a></li>
-                </ul>
+            
+            <!-- Group Management part -->
+            <div id="creategroup" class="card">
+                <h2>Group Management</h2>
+                <div class="group-container">
+                    <div class="group">
+                        <h3>Group 1</h3>
+                        <ul>
+                            <li>John Doe</li>
+                            <li>Jane Smith</li>
+                        </ul>
+                        <button>Add Patient</button>
+                    </div>
+                    <div class="group">
+                        <h3>Group 2</h3>
+                        <ul>
+                            <li>Alice Johnson</li>
+                            <li>Mark Lee</li>
+                        </ul>
+                        <button>Add Patient</button>
+                    </div>
+                </div>
             </div>
-            <div id="resources" class="card">
-                <h2>Resources</h2>
-                <p>Access valuable resources <a href="#">here</a>.</p>
+
+            <!-- Patient Notes part -->
+            <div id="notes" class="card">
+                <h2>Patient Notes</h2>
+                <textarea placeholder="Please enter your note here" rows="6"></textarea>
+                <button>Save Note</button>
             </div>
         </section>
     </div>
