@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CaRe Web Service</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <header>
+        <h1>Login to CaRe Web Service</h1>
+    </header>
+
+    <main>
+        <section>
+            <form id="loginForm">
+                <!-- Username/Email Input -->
+                <label for="username">Username/Email:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username or email" required>
+
+                <!-- Password Input -->
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <!-- Role Selection Dropdown -->
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="therapist">Therapist</option>
+                    <option value="patient">Patient</option>
+                    <option value="staff">Staff</option>
+                    <option value="auditor">Auditor</option>
+                </select>
+
+                <!-- Login Button -->
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CaRe Web Service</p>
+    </footer>
+
+    <!-- Add JavaScript to handle form submission if needed -->
+    <script src="login.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="group-27">
+    <title>Journal Entry | CaRe Web Service</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <header>
+        <h1>Journal Entry - CaRe Web Service</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Create New Journal Entry</h2>
+            <form id="journalForm">
+                <!-- Date of Entry -->
+                <label for="entryDate">Date:</label>
+                <input type="date" id="entryDate" name="entryDate" required>
+
+                <!-- Mood/Emotion Tracking -->
+                <label for="mood">Mood:</label>
+                <div id="emoji-mood">
+                    <input type="radio" id="happy" name="mood" value="happy" required>
+                    <label for="happy" class="emoji" title="Happy">😊</label>
+                
+                    <input type="radio" id="sad" name="mood" value="sad">
+                    <label for="sad" class="emoji" title="Sad">😢</label>
+                
+                    <input type="radio" id="anxious" name="mood" value="anxious">
+                    <label for="anxious" class="emoji" title="Anxious">😟</label>
+                
+                    <input type="radio" id="neutral" name="mood" value="neutral">
+                    <label for="neutral" class="emoji" title="Neutral">😐</label>
+                </div>
+
+                <!-- Sleep Cycle -->
+                <label for="sleep">Sleep Duration (hours):</label>
+                <input type="number" id="sleep" name="sleep" min="0" max="24" required placeholder="e.g., 8 hours">
+
+                <!-- Eating Habits -->
+                <label for="eating">Eating Habit:</label>
+                <select id="eating" name="eating" required>
+                    <option value="healthy">Healthy</option>
+                    <option value="balanced">Balanced</option>
+                    <option value="unhealthy">Unhealthy</option>
+                </select>
+
+                <!-- Exercise Tracking -->
+                <label for="exercise">Exercise (minutes):</label>
+                <input type="number" id="exercise" name="exercise" min="0" max="180" required placeholder="e.g., 30 minutes">
+
+                <!-- Journal Entry Text -->
+                <label for="entryText">Journal Entry:</label>
+                <textarea id="entryText" name="entryText" rows="6" placeholder="Write your thoughts here..." required></textarea>
+
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </section>
+
+
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CaRe Web Service</p>
+    </footer>
+
+    <!-- Go Back Button -->
+    <button onclick="goBack()">Go Back</button>
+
+    <script>
+        function goBack() {
+            window.history.back(); // This will go to the previous page in browser history
+        }
+    </script>
+
+    <!-- Include external JavaScript for handling the form -->
+    <script src="patient.js"></script>
+</body>
+</html>

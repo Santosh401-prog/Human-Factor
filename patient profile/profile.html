@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile - Therapist View</title>
+    <script src="profile.js"></script>
+    <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Patient Profile</h1>
+    </header>
+
+    <div class="main-container">
+
+        <aside class="sidebar">
+            <ul>
+                <li><a href="#overview">Profile Overview</a></li>
+                <li><a href="#medicalhistory">Medical History</a></li>
+                <li><a href="#prescriptions">Prescriptions</a></li>
+                <li><a href="#appointments">Appointments</a></li>
+                <li><a href="#therapistnotes">Therapist's Notes</a></li>
+                <li><a href="#actions">Quick Actions</a></li>
+            </ul>
+        </aside>
+
+        <section class="content">
+
+            <!-- Profile Overview Section -->
+            <div id="overview" class="card">
+                <h2>Profile Overview</h2>
+                <div class="profile-info">
+                    <div class="info-block">
+                        <label>First Name:</label>
+                        <input type="text" value="John" disabled>
+                    </div>
+
+                    <div class="info-block">
+                        <label>Last Name:</label>
+                        <input type="text" value="Doe" disabled>
+                    </div>
+
+                    <div class="info-block">
+                        <label>Email:</label>
+                        <input type="email" value="john.doe@example.com" disabled>
+                    </div>
+
+                    <div class="info-block">
+                        <label>Date of Birth:</label>
+                        <input type="date" value="1990-06-15" disabled>
+                    </div>
+
+                    <div class="info-block">
+                        <label>Phone Number:</label>
+                        <input type="text" value="+123456789" disabled>
+                    </div>
+
+                    <div class="info-block">
+                        <label>Address:</label>
+                        <textarea disabled>123 Main Street, City, Country</textarea>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div id="medicalhistory" class="card">
+                <h2>Medical History</h2>
+                <ul>
+                    <li>2020 - Diabetes Type 2 Diagnosed</li>
+                </ul>
+            </div>
+
+            <div id="prescriptions" class="card">
+                <h2>Current Prescriptions</h2>
+                <ul>
+                    <li>Metformin 500mg - 1 Tablet Twice Daily</li>
+                </ul>
+            </div>
+
+        
+            <div id="appointments" class="card">
+                <h2>Upcoming Appointments</h2>
+                <ul>
+                    <li>15th September 2024 - Dr. Rishav (General Physician)</li>
+                    <li>22nd September 2024 - Dr. Santosh (Orthopedic Surgeon)</li>
+                </ul>
+            </div>
+
+        
+            <div id="therapistnotes" class="card">
+                <h2>Therapist's Notes</h2>
+                <div class="notes-section">
+                    <p><strong>Session 1 (12th August 2024):</strong> Discussed stress management techniques.</p>
+                    <p><strong>Session 2 (26th August 2024):</strong> Reviewed progress and adjusted goals.</p>
+                </div>
+                
+                <label for="additionalNotes">Add Additional Notes</label>
+                <textarea id="additionalNotes" placeholder="Add new session notes"></textarea>
+                <button>Save Notes</button>
+            </div>
+
+         
+            <div id="actions" class="card">
+                <h2>Quick Actions</h2>
+                <button>Schedule Follow-up Appointment</button>
+                <button>Update Medical History</button>
+                <button>Print Profile</button>
+            </div>
+
+        </section>
+
+    </div>
+  </script>
+   
+      
