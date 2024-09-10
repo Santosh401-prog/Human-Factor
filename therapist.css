@@ -22,7 +22,7 @@ header h1 {
     letter-spacing: 1.2px;
 }
 
-/* Main Section */
+/* Table and Form Styles */
 main {
     max-width: 800px;
     margin: 20px auto;
@@ -40,52 +40,66 @@ section h2 {
     margin-bottom: 20px;
 }
 
-section button {
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.btn-view {
     background-color: #4CAF50;
     color: white;
-    font-size: 1.2em;
-    padding: 12px;
+    padding: 5px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-section button:hover {
-    background-color: #388E3C;
+.btn-view:hover {
+    background-color: #45a049;
 }
 
-/* Button Styles */
+form {
+    margin-top: 20px;
+}
+
+label {
+    font-size: 1.2em;
+    color: #333;
+}
+
+input[type="text"], select, textarea {
+    padding: 10px;
+    margin-top: 5px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
 button {
-    background-color: #f44336;
+    background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
     font-size: 1.2em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    display: block;
-    margin: 20px auto;
-    transition: background-color 0.3s ease;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #d32f2f;
-}
-
-/* Footer Styles */
-footer {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #f1f1f1;
-    color: #777;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    border-top: 1px solid #ddd;
-}
-
-footer p {
-    margin: 0;
-    font-size: 1em;
+    background-color: #388E3C;
 }

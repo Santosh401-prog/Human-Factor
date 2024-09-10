@@ -7,12 +7,55 @@
     <link rel="stylesheet" href="therapist.css">
 </head>
 <body>
-    <header>
-        <h1>Patient Notes</h1>
-    </header>
-    <main>
-        <textarea id="textarea" placeholder="Please Enter your note here"></textarea>
-        <button>Save Note</button>
-    </main>
+
+<header>
+    <h1>Patient Notes</h1>
+</header>
+
+<main>
+    <section>
+        <h2>Add a Note</h2>
+        <form id="note-form">
+            <label for="note-patient">Select Patient:</label>
+            <select id="note-patient">
+                <!-- Patient options will be added dynamically -->
+            </select>
+
+            <label for="patient-note">Patient Note:</label>
+            <textarea id="patient-note" placeholder="Enter note"></textarea>
+
+            <button type="submit">Add Note</button>
+        </form>
+
+        <div id="note-output"></div>
+    </section>
+</main>
+
+<script>
+    const patients = [
+        { id: 1, name: 'John Doe', age: 30 },
+        { id: 2, name: 'Jane Smith', age: 25 },
+        { id: 3, name: 'Michael Johnson', age: 40 },
+    ];
+
+    const notePatientSelect = document.getElementById('note-patient');
+    const noteForm = document.getElementById('note-form');
+    const noteOutput = document.getElementById('note-output');
+
+    patients.forEach(patient => {
+        const option = document.createElement('option');
+        option.value = patient.id;
+        option.textContent = patient.name;
+        notePatientSelect.appendChild(option);
+    });
+
+    noteForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const selectedPatient = notePatientSelect.options[notePatientSelect.selectedIndex].text;
+        const note = document.getElementById('patient-note').value;
+        noteOutput.innerHTML = `<p>Note added for ${selectedPatient}: "${note}"</p>`;
+    });
+</script>
+
 </body>
 </html>
