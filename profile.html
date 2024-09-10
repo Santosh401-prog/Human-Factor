@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="group-27">
     <title>Patient Profile | CaRe Web Service</title>
     <link rel="stylesheet" href="test.css">
 </head>
@@ -25,22 +26,42 @@
         </section>
 
         <!-- Set and Display Goal for This Week -->
+<!-- Set and Display Goals for This Week -->
         <section>
-            <h2>Set a Goal for This Week</h2>
+            <h2>Set Goals for This Week</h2>
             <form id="goalForm">
-                <input type="text" id="goalInput" placeholder="Enter your weekly goal" required>
-                <button type="submit">Set Goal</button>
+                <!-- Exercise Goal -->
+                <label for="exerciseGoal">Exercise Goal (minutes):</label>
+                <input type="number" id="exerciseGoal" placeholder="e.g., 30" required>
+
+                <!-- Sleep Goal -->
+                <label for="sleepGoal">Sleep Goal (hours):</label>
+                <input type="number" id="sleepGoal" placeholder="e.g., 8" required>
+
+                <!-- Eating Habit Goal -->
+                <label for="eatingGoal">Eating Habit Goal:</label>
+                <select id="eatingGoal" required>
+                    <option value="healthy">Healthy</option>
+                    <option value="balanced">Balanced</option>
+                    <option value="unhealthy">Unhealthy</option>
+                </select>
+
+                <!-- Journal Entry Frequency Goal -->
+                <label for="journalGoal">Journal Entry Frequency (times per week):</label>
+                <input type="number" id="journalGoal" placeholder="e.g., 3" required>
+
+                <button type="submit" class="submit-btn">Set Goals</button>
             </form>
-            <p><strong>Goal for this week:</strong> <span id="currentGoal">No goal set yet.</span></p>
+
+            <h3>Current Goals</h3>
+            <p><strong>Exercise:</strong> <span id="currentExerciseGoal">Not set</span> minutes</p>
+            <p><strong>Sleep:</strong> <span id="currentSleepGoal">Not set</span> hours</p>
+            <p><strong>Eating Habit:</strong> <span id="currentEatingGoal">Not set</span></p>
+            <p><strong>Journal Frequency:</strong> <span id="currentJournalGoal">Not set</span> times per week</p>
         </section>
 
-        <!-- Last Week's Activities -->
-        <section>
-            <h2>Activities from Last Week</h2>
-            <ul id="last-week-activities">
-                <!-- Activities will be populated here -->
-            </ul>
-        </section>
+
+
     </main>
 
     <footer>
@@ -54,6 +75,6 @@
     function goBack() {
         window.history.back(); // This will go to the previous page in browser history
     }
-</script>
+    </script>
 </body>
 </html>
