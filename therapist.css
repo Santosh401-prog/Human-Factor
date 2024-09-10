@@ -1,70 +1,91 @@
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: white;
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
-header{
-    background-color:skyblue;
+/* Header Styles */
+header {
+    background-color: #4CAF50;
     color: white;
     text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-main{
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+    letter-spacing: 1.2px;
+}
+
+/* Main Section */
+main {
+    max-width: 800px;
+    margin: 20px auto;
     padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
-h2{
-    color:black;
-}
-
-table{
-    width: 100%;
-    border-collapse: collapse;
+section h2 {
+    color: #4CAF50;
+    font-size: 1.8em;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
     margin-bottom: 20px;
 }
-table, th, td {
-    border: 1 px solid black;
-}
 
-th, td {
-padding: 10px;
-text-align: left;
-}
-
-button {
-    background-color: skyblue;
+section button {
+    background-color: #4CAF50;
     color: white;
+    font-size: 1.2em;
+    padding: 12px;
     border: none;
-    padding: 10px 15 px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+section button:hover {
+    background-color: #388E3C;
+}
+
+/* Button Styles */
+button {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
     border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    transition: background-color 0.3s ease;
 }
 
-button :hover{
-    background-color: #005bb5;
+button:hover {
+    background-color: #d32f2f;
 }
 
-.group-container{
-display: flex;
-margin-bottom: 20px;
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #f1f1f1;
+    color: #777;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #ddd;
 }
 
-.group{
-    background-color: white;
-    padding: 20px;
-    width: 45%;
-    border: 1 px solid #ccc;
-    border-radius: 5px;; 
-}
-.group h3{
-    margin-top: 0px;
-}
-
-textarea{
-    width: 345px;
-    height: 10px;
-    padding: 100px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
+footer p {
+    margin: 0;
+    font-size: 1em;
 }
