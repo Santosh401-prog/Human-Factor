@@ -12,20 +12,44 @@
     <h1>Patient Notes</h1>
 </header>
 
+<div class="sidebar">
+    <ul>
+        <li><a href="therapistdashboard.html">Dashboard</a></li>
+        <li><a href="patient-data.html">Patient Summary</a></li>
+        <li><a href="group-management.html">Group Management</a></li>
+        <li><a href="patient-notes.html">Patient Notes</a></li>
+    </ul>
+</div>
+
 <main>
     <section>
         <h2>Add a Note</h2>
         <form id="note-form">
             <label for="note-patient">Select Patient:</label>
-            <select id="note-patient">
+            <select id="note-patient" required>
                 <!-- Patient options will be added dynamically -->
             </select>
 
             <label for="patient-note">Patient Note:</label>
-            <textarea id="patient-note" placeholder="Enter note"></textarea>
+            <textarea id="patient-note" placeholder="Enter note" required></textarea>
 
             <button type="submit">Add Note</button>
         </form>
+
+        <h2>Patient Notes Table</h2>
+        <table id="notes-table">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Note</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Notes will be added here dynamically -->
+            </tbody>
+        </table>
 
         <div id="note-output"></div>
     </section>
@@ -33,15 +57,16 @@
 
 <script>
     const patients = [
-        { id: 1, name: 'John Doe', age: 30 },
-        { id: 2, name: 'Jane Smith', age: 25 },
-        { id: 3, name: 'Michael Johnson', age: 40 },
+        { id: 1, name: 'John Doe' },
+        { id: 2, name: 'Jane Smith' },
+        { id: 3, name: 'Michael Johnson' },
     ];
 
     const notePatientSelect = document.getElementById('note-patient');
     const noteForm = document.getElementById('note-form');
-    const noteOutput = document.getElementById('note-output');
+    const notesTableBody = document.querySelector('#notes-table tbody');
 
+    // Populate the patient dropdown
     patients.forEach(patient => {
         const option = document.createElement('option');
         option.value = patient.id;
@@ -49,11 +74,32 @@
         notePatientSelect.appendChild(option);
     });
 
+    // Add event listener to form submit
     noteForm.addEventListener('submit', function (e) {
         e.preventDefault();
+
+        // Get the selected patient's name and the entered note
         const selectedPatient = notePatientSelect.options[notePatientSelect.selectedIndex].text;
         const note = document.getElementById('patient-note').value;
-        noteOutput.innerHTML = `<p>Note added for ${selectedPatient}: "${note}"</p>`;
+        const date = new Date().toLocaleDateString();  // Get current date
+
+        // Clear the form
+        noteForm.reset();
+
+        // Add the note to the table with a delete button
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${selectedPatient}</td>
+            <td>${note}</td>
+            <td>${date}</td>
+            <td><button class="delete-btn">Delete</button></td>
+        `;
+        notesTableBody.appendChild(row);
+
+        // Add event listener for delete button
+        row.querySelector('.delete-btn').addEventListener('click', function () {
+            row.remove();  // Remove the row from the table
+        });
     });
 </script>
 

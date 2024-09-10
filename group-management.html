@@ -5,6 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group Management</title>
     <link rel="stylesheet" href="therapist.css">
+    <style>
+        /* Styles for table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button.delete-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button.delete-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .patient-list {
+            margin-top: 10px;
+        }
+
+        .patient-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .patient-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -12,48 +62,128 @@
     <h1>Group Management</h1>
 </header>
 
-<main>
-    <section>
-        <h2>Create a Group</h2>
-        <form id="group-form">
-            <label for="group-name">Group Name:</label>
-            <input type="text" id="group-name" placeholder="Enter group name" required>
+<div class="sidebar">
+    <ul>
+        <li><a href="therapistdashboard.html">Dashboard</a></li>
+        <li><a href="patient-data.html">Patient Summary</a></li>
+        <li><a href="group-management.html">Group Management</a></li>
+        <li><a href="patient-notes.html">Patient Notes</a></li>
+    </ul>
+</div>
 
-            <label for="patient-select">Select Patients:</label>
-            <select id="patient-select" multiple>
-                <!-- Patient options will be added dynamically -->
-            </select>
+<div class="main-content">
+    <main>
+        <section>
+            <h2>Create a Group</h2>
+            <form id="group-form">
+                <label for="group-name">Group Name:</label>
+                <input type="text" id="group-name" placeholder="Enter group name" required>
 
-            <button type="submit">Create Group</button>
-        </form>
+                <label for="group-type">Group Type:</label>
+                <select id="group-type" required>
+                    <option value="" disabled selected>Select group type</option>
+                    <option value="therapy">Therapy</option>
+                    <option value="support">Support</option>
+                    <option value="custom">Custom</option>
+                </select>
 
-        <div id="group-output"></div>
-    </section>
-</main>
+                <label>Select Patients:</label>
+                <div class="patient-list" id="patient-list">
+                    <!-- Patients checkboxes will be added dynamically here -->
+                </div>
+
+                <button type="submit">Create Group</button>
+            </form>
+
+            <!-- Table to display groups -->
+            <table id="group-table">
+                <thead>
+                    <tr>
+                        <th>Group Name</th>
+                        <th>Group Type</th>
+                        <th>Patients</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Groups will be added dynamically here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
 
 <script>
+    // Sample patient data
     const patients = [
-        { id: 1, name: 'John Doe', age: 30 },
-        { id: 2, name: 'Jane Smith', age: 25 },
-        { id: 3, name: 'Michael Johnson', age: 40 },
+        { id: 1, name: 'John Doe' },
+        { id: 2, name: 'Jane Smith' },
+        { id: 3, name: 'Michael Johnson' },
+        { id: 4, name: 'Emily Davis' },
     ];
 
-    const patientSelect = document.getElementById('patient-select');
+    const patientListDiv = document.getElementById('patient-list');
     const groupForm = document.getElementById('group-form');
-    const groupOutput = document.getElementById('group-output');
+    const groupTableBody = document.querySelector('#group-table tbody');
 
+    // Populate the patient list with checkboxes
     patients.forEach(patient => {
-        const option = document.createElement('option');
-        option.value = patient.id;
-        option.textContent = patient.name;
-        patientSelect.appendChild(option);
+        const div = document.createElement('div');
+        div.classList.add('patient-item');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `patient-${patient.id}`;
+        checkbox.value = patient.name;
+
+        const label = document.createElement('label');
+        label.htmlFor = `patient-${patient.id}`;
+        label.textContent = patient.name;
+
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        patientListDiv.appendChild(div);
     });
 
+    // Function to add group to table
+    function addGroupToTable(groupName, groupType, selectedPatients) {
+        const row = document.createElement('tr');
+
+        // Create table cells for group info
+        row.innerHTML = `
+            <td>${groupName}</td>
+            <td>${groupType}</td>
+            <td>${selectedPatients.join(', ')}</td>
+            <td><button class="delete-btn">Delete</button></td>
+        `;
+
+        // Add delete functionality
+        row.querySelector('.delete-btn').addEventListener('click', function() {
+            row.remove();
+        });
+
+        // Append the row to the table
+        groupTableBody.appendChild(row);
+    }
+
+    // Handle form submission
     groupForm.addEventListener('submit', function (e) {
         e.preventDefault();
+
         const groupName = document.getElementById('group-name').value;
-        const selectedPatients = Array.from(patientSelect.selectedOptions).map(option => option.text);
-        groupOutput.innerHTML = `<p>Group "${groupName}" created with patients: ${selectedPatients.join(', ')}</p>`;
+        const groupType = document.getElementById('group-type').value;
+
+        // Get selected patients from checkboxes
+        const selectedPatients = Array.from(document.querySelectorAll('.patient-item input[type="checkbox"]:checked'))
+                                      .map(checkbox => checkbox.value);
+
+        if (selectedPatients.length > 0) {
+            // Add the group to the table
+            addGroupToTable(groupName, groupType, selectedPatients);
+            groupForm.reset(); // Reset the form after submission
+        } else {
+            alert('Please select at least one patient.');
+        }
     });
 </script>
 
