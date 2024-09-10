@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    background-color: #4c6aaf;
+    background-color: #2c589a;
     color: white;
     padding: 15px 0;
     text-align: center;
@@ -23,7 +23,7 @@ header {
 /* Sidebar */
 .sidebar {
     width: 250px;
-    background-color: #333;
+    background-color:  #2c3e50;
     padding: 20px;
 }
 
@@ -116,7 +116,7 @@ table tr:nth-child(even) {
 }
 
 .group button {
-    background-color: #4c6daf;
+    background-color:  #2c589a;
     color: white;
     border: none;
     padding: 10px;
@@ -126,7 +126,7 @@ table tr:nth-child(even) {
 }
 
 .group button:hover {
-    background-color: #4c6daf;
+    background-color:  #2c589a;
 }
 
 /* Patient Notes */
@@ -140,7 +140,7 @@ textarea {
 }
 
 button {
-    background-color: #4c6daf;
+    background-color:  #2c589a;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -149,7 +149,7 @@ button {
 }
 
 button:hover {
-    background-color: #4c6daf;
+    background-color:  #2c589a;
 }
 
 /* Responsive Design */
