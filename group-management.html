@@ -54,6 +54,11 @@
         .patient-item input[type="checkbox"] {
             margin-right: 10px;
         }
+
+        /* Highlight row for follow-up */
+        .follow-up {
+            background-color: #ffeb3b; /* Light yellow for highlighting */
+        }
     </style>
 </head>
 <body>
@@ -102,6 +107,7 @@
                         <th>Group Name</th>
                         <th>Group Type</th>
                         <th>Patients</th>
+                        <th>Follow-Up</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -150,15 +156,27 @@
         const row = document.createElement('tr');
 
         // Create table cells for group info
+        const patientsText = selectedPatients.join(', ');
         row.innerHTML = `
             <td>${groupName}</td>
             <td>${groupType}</td>
-            <td>${selectedPatients.join(', ')}</td>
+            <td>${patientsText}</td>
+            <td><input type="checkbox" class="follow-up-checkbox"></td>
             <td><button class="delete-btn">Delete</button></td>
         `;
 
+        // Add follow-up functionality
+        const followUpCheckbox = row.querySelector('.follow-up-checkbox');
+        followUpCheckbox.addEventListener('change', function () {
+            if (followUpCheckbox.checked) {
+                row.classList.add('follow-up');  // Highlight row if checked
+            } else {
+                row.classList.remove('follow-up');  // Remove highlight if unchecked
+            }
+        });
+
         // Add delete functionality
-        row.querySelector('.delete-btn').addEventListener('click', function() {
+        row.querySelector('.delete-btn').addEventListener('click', function () {
             row.remove();
         });
 

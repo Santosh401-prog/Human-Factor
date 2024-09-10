@@ -5,6 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Summary</title>
     <link rel="stylesheet" href="therapist.css">
+    <style>
+        /* Styles for table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .view-btn {
+            background-color: #2196F3;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .view-btn:hover {
+            background-color: #1976D2;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,48 +92,98 @@
     </ul>
 </div>
 
-<main>
-    <section>
-        <h2>Patient Summary</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Patient ID</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>View</th>
-                </tr>
-            </thead>
-            <tbody id="patient-table-body">
-                <!-- Patients will be added here dynamically -->
-            </tbody>
-        </table>
-    </section>
-</main>
+<div class="main-content">
+    <main>
+        <section>
+            <h2>Patient Data</h2>
+            <table id="patient-table">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Age</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Patient rows will be added dynamically here -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Modal for viewing patient details -->
+        <div id="patient-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="modal-patient-name"></h2>
+                <p><strong>Age:</strong> <span id="modal-patient-age"></span></p>
+                <p><strong>Mood:</strong> <span id="modal-patient-mood"></span></p>
+                <p><strong>Sleep Duration:</strong> <span id="modal-patient-sleep"></span> hours</p>
+                <p><strong>Exercise:</strong> <span id="modal-patient-exercise"></span></p>
+                <p><strong>Other Activities:</strong> <span id="modal-patient-activities"></span></p>
+            </div>
+        </div>
+    </main>
+</div>
 
 <script>
+    // Sample patient data
     const patients = [
-        { id: 1, name: 'John Doe', age: 30 },
-        { id: 2, name: 'Jane Smith', age: 25 },
-        { id: 3, name: 'Michael Johnson', age: 40 },
+        { id: 1, name: 'John Doe', age: 30, mood: 'Happy', sleep: 7, exercise: '30 minutes', activities: 'Yoga' },
+        { id: 2, name: 'Jane Smith', age: 25, mood: 'Sad', sleep: 6, exercise: '1 hour', activities: 'Jogging' },
+        { id: 3, name: 'Michael Johnson', age: 40, mood: 'Neutral', sleep: 8, exercise: '45 minutes', activities: 'Gym' },
     ];
 
-    const patientTableBody = document.getElementById('patient-table-body');
+    const patientTableBody = document.querySelector('#patient-table tbody');
+    const modal = document.getElementById('patient-modal');
+    const closeModal = document.querySelector('.close-btn');
 
-    patients.forEach(patient => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${patient.id}</td>
-            <td>${patient.name}</td>
-            <td>${patient.age}</td>
-            <td><button class="btn-view" onclick="viewPatient(${patient.id})">View</button></td>
-        `;
-        patientTableBody.appendChild(row);
+    // Function to populate the patient table
+    function populatePatientTable() {
+        patients.forEach(patient => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${patient.name}</td>
+                <td>${patient.age}</td>
+                <td><button class="view-btn" data-id="${patient.id}">View</button></td>
+            `;
+            patientTableBody.appendChild(row);
+        });
+    }
+
+    // Function to show patient details in the modal
+    function showPatientDetails(patient) {
+        document.getElementById('modal-patient-name').textContent = patient.name;
+        document.getElementById('modal-patient-age').textContent = patient.age;
+        document.getElementById('modal-patient-mood').textContent = patient.mood;
+        document.getElementById('modal-patient-sleep').textContent = patient.sleep;
+        document.getElementById('modal-patient-exercise').textContent = patient.exercise;
+        document.getElementById('modal-patient-activities').textContent = patient.activities;
+        modal.style.display = 'block';
+    }
+
+    // Event listener for modal close button
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
     });
 
-    function viewPatient(id) {
-        alert('Viewing details for Patient ID: ' + id);
-    }
+    // Event listener for clicking outside the modal
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Event delegation for view buttons
+    patientTableBody.addEventListener('click', function(event) {
+        if (event.target.classList.contains('view-btn')) {
+            const patientId = event.target.getAttribute('data-id');
+            const patient = patients.find(p => p.id == patientId);
+            showPatientDetails(patient);
+        }
+    });
+
+    // Populate the table on page load
+    populatePatientTable();
 </script>
 
 </body>
