@@ -5,7 +5,7 @@ like create file then
 1. git branch (check branch)
 2. git checkout your-branch-name
 3. git add filename
-4. git commit -m "write anything"
+4. git commit -m "write anything"   
 5. git push origin your-branch-name(Push changes to your remote branch)
 6. git pull origin main(get changes from main and merge them into your branch)
 7. if there is any conflict then
