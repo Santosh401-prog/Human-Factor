@@ -1,0 +1,143 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    /* Sidebar Styles */
+    .sidebar {
+        width: 250px;
+        height: 100vh; /* Full viewport height */
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #4CAF50;
+        padding-top: 20px;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .sidebar ul li a {
+        text-decoration: none;
+        color: white;
+        font-size: 1.2em;
+        display: block;
+        padding: 10px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+        background-color: #45a049;
+    }
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+    letter-spacing: 1.2px;
+}
+
+/* Table and Form Styles */
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+section h2 {
+    color: #4CAF50;
+    font-size: 1.8em;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.btn-view {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-view:hover {
+    background-color: #45a049;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    font-size: 1.2em;
+    color: #333;
+}
+
+input[type="text"], select, textarea {
+    padding: 10px;
+    margin-top: 5px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #388E3C;
+}
+.delete-btn{
+    background-color:red;
+}
