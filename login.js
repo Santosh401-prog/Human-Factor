@@ -30,3 +30,4 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         alert('Only auditors are allowed for this demo.');
     }
 });
+
