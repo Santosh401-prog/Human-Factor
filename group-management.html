@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group Management</title>
+    <title>Group Management with Drag and Drop</title>
     <link rel="stylesheet" href="therapist.css">
     <style>
         /* Styles for table */
@@ -49,10 +49,24 @@
             display: flex;
             align-items: center;
             margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            cursor: grab;
+            border: 1px solid #ddd;
         }
 
-        .patient-item input[type="checkbox"] {
-            margin-right: 10px;
+        /* Dragged over style */
+        .patient-item.dragging {
+            opacity: 0.5;
+        }
+
+        /* Drop zone style */
+        .drop-zone {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px dashed #4CAF50;
+            text-align: center;
+            background-color: #f9f9f9;
         }
 
         /* Highlight row for follow-up */
@@ -93,7 +107,12 @@
 
                 <label>Select Patients:</label>
                 <div class="patient-list" id="patient-list">
-                    <!-- Patients checkboxes will be added dynamically here -->
+                    <!-- Patients draggable items will be added dynamically here -->
+                </div>
+
+                <!-- Drop zone for selected patients -->
+                <div class="drop-zone" id="drop-zone">
+                    Drop patients here to add them to the group
                 </div>
 
                 <button type="submit">Create Group</button>
@@ -128,26 +147,56 @@
     ];
 
     const patientListDiv = document.getElementById('patient-list');
+    const dropZone = document.getElementById('drop-zone');
     const groupForm = document.getElementById('group-form');
     const groupTableBody = document.querySelector('#group-table tbody');
 
-    // Populate the patient list with checkboxes
+    // Track selected patients
+    let selectedPatients = [];
+
+    // Populate the patient list with draggable items
     patients.forEach(patient => {
         const div = document.createElement('div');
         div.classList.add('patient-item');
+        div.textContent = patient.name;
+        div.setAttribute('draggable', 'true');
+        div.dataset.patientId = patient.id;
 
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = `patient-${patient.id}`;
-        checkbox.value = patient.name;
+        // Drag event listeners
+        div.addEventListener('dragstart', (e) => {
+            div.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', patient.name);
+        });
 
-        const label = document.createElement('label');
-        label.htmlFor = `patient-${patient.id}`;
-        label.textContent = patient.name;
+        div.addEventListener('dragend', () => {
+            div.classList.remove('dragging');
+        });
 
-        div.appendChild(checkbox);
-        div.appendChild(label);
         patientListDiv.appendChild(div);
+    });
+
+    // Handle dragover and drop events on the drop zone
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.backgroundColor = '#e0f7fa'; // Highlight drop zone when dragging over
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.style.backgroundColor = '#f9f9f9'; // Reset drop zone background
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.backgroundColor = '#f9f9f9'; // Reset background on drop
+
+        // Get the dragged patient name
+        const patientName = e.dataTransfer.getData('text/plain');
+        if (!selectedPatients.includes(patientName)) {
+            selectedPatients.push(patientName);
+        }
+
+        // Show the selected patients in the drop zone
+        dropZone.textContent = selectedPatients.join(', ');
     });
 
     // Function to add group to table
@@ -190,19 +239,20 @@
         const groupName = document.getElementById('group-name').value;
         const groupType = document.getElementById('group-type').value;
 
-        // Get selected patients from checkboxes
-        const selectedPatients = Array.from(document.querySelectorAll('.patient-item input[type="checkbox"]:checked'))
-                                      .map(checkbox => checkbox.value);
-
         if (selectedPatients.length > 0) {
             // Add the group to the table
             addGroupToTable(groupName, groupType, selectedPatients);
             groupForm.reset(); // Reset the form after submission
+
+            // Reset selected patients and drop zone text
+            selectedPatients = [];
+            dropZone.textContent = 'Drop patients here to add them to the group';
         } else {
-            alert('Please select at least one patient.');
+            alert('Please drag and drop at least one patient into the group.');
         }
     });
 </script>
 
 </body>
 </html>
+ 

@@ -8,7 +8,11 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         window.location.href = 'patient.html'; // Redirect to patient.html
     } 
     else if (role === 'staff') {
+<<<<<<< HEAD
         window.location.href = 'Prof_Staff/staff_portal.php'; // Redirect to staff_portal.php
+=======
+        window.location.href = 'staff_portal.html'; // Redirect to staff_portal
+>>>>>>> 57e604fa2904f1709936fb37f15b45984b068d1e
     } 
     else if (role === 'therapist') {
         window.location.href = 'therapistdashboard.html'; // Redirect to therapist portal
@@ -30,3 +34,4 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         alert('Only auditors are allowed for this demo.');
     }
 });
+
