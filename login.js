@@ -8,7 +8,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         window.location.href = 'patient.html'; // Redirect to patient.html
     } 
     else if (role === 'staff') {
-        window.location.href = 'staff_portal.php'; // Redirect to staff_portal.php
+        window.location.href = 'Prof_Staff/staff_portal.php'; // Redirect to staff_portal.php
     } 
     else if (role === 'therapist') {
         window.location.href = 'therapistdashboard.html'; // Redirect to therapist portal
