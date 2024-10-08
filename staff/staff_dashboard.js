@@ -4,7 +4,7 @@ window.onload = function() {
 
 // Function to load and display patient demographic data
 function loadPatientData() {
-    fetch('patient_data.php?action=fetch')
+    fetch('../php/patient_data.php?action=fetch')
         .then(response => response.json())
         .then(data => {
             const patientTable = document.getElementById('patientData');
