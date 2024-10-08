@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Summary</title>
+    <title>Patient Data</title>
     <link rel="stylesheet" href="therapist.css">
     <style>
-        /* Styles for table */
+        /* Table and Modal Styles */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -27,7 +27,7 @@
             color: white;
         }
 
-        .view-btn {
+        .view-btn, .add-note-btn {
             background-color: #2196F3;
             color: white;
             padding: 6px 12px;
@@ -36,11 +36,10 @@
             cursor: pointer;
         }
 
-        .view-btn:hover {
+        .view-btn:hover, .add-note-btn:hover {
             background-color: #1976D2;
         }
 
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
@@ -75,6 +74,17 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        /* Form Styles */
+        .modal textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .modal button {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -96,6 +106,7 @@
     <main>
         <section>
             <h2>Patient Data</h2>
+            <input type="text" id="search" placeholder="Search by name" onkeyup="filterPatients()" />
             <table id="patient-table">
                 <thead>
                     <tr>
@@ -122,68 +133,70 @@
                 <p><strong>Other Activities:</strong> <span id="modal-patient-activities"></span></p>
             </div>
         </div>
+
+        <!-- Modal for adding patient notes -->
+        <div id="note-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-note-btn">&times;</span>
+                <h2>Add Note for <span id="note-patient-name"></span></h2>
+                <textarea id="patient-note" placeholder="Enter note"></textarea>
+                <button id="save-note-btn">Save Note</button>
+            </div>
+        </div>
     </main>
 </div>
 
 <script>
-    // Sample patient data
-    const patients = [
-        { id: 1, name: 'Samip Young', age: 30, mood: 'Happy', sleep: 7, exercise: '30 minutes', activities: 'Yoga' },
-        { id: 2, name: 'Tanmay Pearce', age: 25, mood: 'Sad', sleep: 6, exercise: '1 hour', activities: 'Jogging' },
-        { id: 3, name: 'Madan Johnson', age: 40, mood: 'Neutral', sleep: 8, exercise: '45 minutes', activities: 'Gym' },
-    ];
 
-    const patientTableBody = document.querySelector('#patient-table tbody');
-    const modal = document.getElementById('patient-modal');
-    const closeModal = document.querySelector('.close-btn');
+    
+    // Function to fetch patient data from the server using AJAX
+    function fetchPatients() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch-patients.php', true);
+        xhr.onload = function() {
+            if (this.status === 200) {
+                const patients = JSON.parse(this.responseText);
+                populatePatientTable(patients);
+            }
+        };
+        xhr.send();
+    }
 
-    // Function to populate the patient table
-    function populatePatientTable() {
+    // Function to populate the patient table dynamically
+    function populatePatientTable(patients) {
+        const patientTableBody = document.querySelector('#patient-table tbody');
+        patientTableBody.innerHTML = ''; // Clear previous rows
+
         patients.forEach(patient => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${patient.name}</td>
                 <td>${patient.age}</td>
-                <td><button class="view-btn" data-id="${patient.id}">View</button></td>
+                <td>
+                    <button class="view-btn" data-id="${patient.id}">View</button>
+                    <button class="add-note-btn" data-id="${patient.id}">Add Note</button>
+                </td>
             `;
             patientTableBody.appendChild(row);
         });
     }
 
-    // Function to show patient details in the modal
-    function showPatientDetails(patient) {
-        document.getElementById('modal-patient-name').textContent = patient.name;
-        document.getElementById('modal-patient-age').textContent = patient.age;
-        document.getElementById('modal-patient-mood').textContent = patient.mood;
-        document.getElementById('modal-patient-sleep').textContent = patient.sleep;
-        document.getElementById('modal-patient-exercise').textContent = patient.exercise;
-        document.getElementById('modal-patient-activities').textContent = patient.activities;
-        modal.style.display = 'block';
+    // Function to filter patients based on the search input
+    function filterPatients() {
+        const searchValue = document.getElementById('search').value.toLowerCase();
+        const rows = document.querySelectorAll('#patient-table tbody tr');
+        rows.forEach(row => {
+            const name = row.cells[0].textContent.toLowerCase();
+            if (name.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
     }
 
-    // Event listener for modal close button
-    closeModal.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
-    // Event listener for clicking outside the modal
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // Event delegation for view buttons
-    patientTableBody.addEventListener('click', function(event) {
-        if (event.target.classList.contains('view-btn')) {
-            const patientId = event.target.getAttribute('data-id');
-            const patient = patients.find(p => p.id == patientId);
-            showPatientDetails(patient);
-        }
-    });
-
-    // Populate the table on page load
-    populatePatientTable();
+    // Call fetchPatients when the page loads
+    document.addEventListener('DOMContentLoaded', fetchPatients);
 </script>
 
 </body>
