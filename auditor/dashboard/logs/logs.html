@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="group-27">
+    <title>Audit Logs | CaRe Web Service</title>
+    <link rel="stylesheet" href="logs.css">
+</head>
+<body>
+    <header>
+        <h1>Audit Logs</h1>
+    </header>
+
+    <main>
+        <section class="logs-section">
+            <h2>Recent Audit Logs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Action</th>
+                        <th>User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Logs will be dynamically populated -->
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- Go Back Button -->
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="goBack()">Go Back</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CaRe Web Service</p>
+    </footer>
+
+    <script src="logs.js"></script>
+</body>
+</html>
