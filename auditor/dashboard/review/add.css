@@ -150,12 +150,12 @@ ul li a:hover {
 /* Footer */
 footer {
     text-align: center;
-    padding: 20px;
+    padding: 10px 0;
     background-color: #4CAF50;
     color: white;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    width: 100%; 
+    position: absolute; 
+    bottom: 0; 
 }
 
 /* Responsive Adjustments */

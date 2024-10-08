@@ -24,3 +24,6 @@ function populatePatientRecords() {
 
 // Call the function to populate data on page load
 document.addEventListener('DOMContentLoaded', populatePatientRecords);
+function goBack() {
+    window.history.back(); 
+}

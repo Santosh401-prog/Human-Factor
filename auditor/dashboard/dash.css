@@ -21,7 +21,7 @@ header h1 {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #333;
+    background-color: #4CAF50;
     padding-top: 20px;
 }
 
@@ -65,8 +65,8 @@ main section {
 footer {
     text-align: center;
     padding: 10px;
-    background-color: #333;
-    color: white;
+    background-color:  #4CAF50;
+    color: rgb(9, 8, 8);
     position: fixed;
     width: 100%;
     bottom: 0;
