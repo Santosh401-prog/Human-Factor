@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Patient Appointments | CaRe Web Service</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Schedule Patient Appointments</h1>
+    </header>
+
+    <main>
+        <!-- Section to view patient demographic data and schedule appointments -->
+        <section id="schedule-patient-section">
+            <h2>Select a Patient and Schedule Appointment</h2>
+            <table border="1" cellpadding="10" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Height (cm)</th>
+                        <th>Weight (kg)</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Schedule</th>
+                    </tr>
+                </thead>
+                <tbody id="patientData">
+                    <!-- Data will be loaded dynamically via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Schedule appointment form -->
+        <section id="appointment-section" style="display: none;">
+            <h2>Schedule Appointment for <span id="patientName"></span></h2>
+            <form id="scheduleAppointmentForm">
+                <label for="appointmentDate">Appointment Date:</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" required>
+
+                <label for="appointmentTime">Appointment Time:</label>
+                <input type="time" id="appointmentTime" name="appointmentTime" required>
+
+                <button type="submit">Schedule Appointment</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CaRe Web Service</p>
+    </footer>
+
+    <script src="schedule.js"></script>
+</body>
+</html>
