@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account | CaRe Web Service</title>
+    <link rel="stylesheet" href="../patient/test.css">
+</head>
+<body>
+    <header>
+        <h1>Create an Account</h1>
+    </header>
+
+    <main>
+        <section id="create-account-section">
+            <h2>Enter Account Details</h2>
+            <form id="registerForm" action="../php/register.php" method="POST">
+                <!-- Username -->
+                <label for="newUsername">Username:</label>
+                <input type="text" id="newUsername" name="newUsername" placeholder="Enter your username" required>
+
+                <!-- Password -->
+                <label for="newPassword">Password:</label>
+                <input type="password" id="newPassword" name="newPassword" placeholder="Enter your password" required>
+
+                <!-- Role -->
+                <label for="newRole">Role:</label>
+                <select id="newRole" name="newRole" required>
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="therapist">Therapist</option>
+                    <option value="patient">Patient</option>
+                    <option value="staff">Staff</option>
+                    <option value="auditor">Auditor</option>
+                </select>
+
+                <!-- Submit Button -->
+                <button type="submit" class="login-btn">Create Account</button>
+                        <!-- Go Back Button -->
+        <button onclick="goBack()">Go Back</button>
+
+        <script>
+            function goBack() {
+                window.history.back(); // This will go to the previous page in browser history
+            }
+        </script>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CaRe Web Service</p>
+    </footer>
+
+
+
+
+    <script src="../patient/register.js"></script> <!-- Optional JavaScript for validation -->
+</body>
+</html>

@@ -1,0 +1,151 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+    letter-spacing: 1.2px;
+}
+
+/* Main Section Styles */
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Section Titles */
+section h2 {
+    color: #4CAF50;
+    font-size: 1.8em;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 1.2em;
+    color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"],
+input[type="time"],
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1.1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Button Styles */
+button, .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+button:hover, .btn:hover {
+    background-color: #388E3C;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Schedule Appointment Section */
+#appointment-section {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #f1f1f1;
+    color: #777;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #ddd;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1em;
+}
+
+/* Button for Go Back */
+.go-back-btn {
+    background-color: #f44336;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2em;
+    text-align: center;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.go-back-btn:hover {
+    background-color: #d32f2f;
+}
