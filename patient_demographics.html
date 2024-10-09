@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Demographics</title>
+    <link rel="stylesheet" href="patient_demographics.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Demographic Details</h1>
+        <table id="demographic-table" border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Demographic data will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Simulated patient data (in a real scenario, this would be fetched from the backend)
+        const patients = [
+            { id: 1, name: 'John Doe', age: 30, gender: 'Male', height: '5.9ft', weight: '70kg' },
+            { id: 2, name: 'Jane Smith', age: 28, gender: 'Female', height: '5.6ft', weight: '60kg' },
+            { id: 3, name: 'David Johnson', age: 45, gender: 'Male', height: '6.0ft', weight: '85kg' }
+        ];
+
+        // Populate the table with patient demographic data
+        const demographicTableBody = document.querySelector('#demographic-table tbody');
+        patients.forEach(patient => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${patient.id}</td>
+                <td>${patient.name}</td>
+                <td>${patient.age}</td>
+                <td>${patient.gender}</td>
+                <td>${patient.height}</td>
+                <td>${patient.weight}</td>
+            `;
+            demographicTableBody.appendChild(row);
+        });
+    </script>
+</body>
+</html>
