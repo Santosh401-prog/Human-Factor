@@ -3,7 +3,7 @@
 $servername = "localhost";
 $usernameDB = "root"; // Replace with your database username
 $passwordDB = ""; // Replace with your database password
-$dbname = "care_system"; // Replace with your database name
+$dbname = "your_database"; // Replace with your database name
 
 $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
 

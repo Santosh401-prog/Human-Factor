@@ -34,7 +34,7 @@ document.getElementById('addPatientForm').addEventListener('submit', function(ev
     const formData = new FormData(this);
     formData.append('action', 'add');
 
-    fetch('patient_data.php', {
+    fetch('../php/patient_data.php', {
         method: 'POST',
         body: formData
     })
