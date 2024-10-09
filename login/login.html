@@ -13,7 +13,8 @@
 
     <main>
         <section>
-            <form id="loginForm">
+            <form id="loginForm" action="../php/login.php" method="POST">
+
                 <!-- Username/Email Input -->
                 <label for="username">Username/Email:</label>
                 <input type="text" id="username" name="username" placeholder="Enter your username or email" required>
@@ -34,6 +35,8 @@
 
                 <!-- Login Button -->
                 <button type="submit" class="login-btn">Login</button>
+                <a href="create_account.html">Don't have an account? Create one now!</a>
+
             </form>
         </section>
     </main>

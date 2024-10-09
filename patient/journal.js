@@ -6,7 +6,7 @@ document.getElementById('journalForm').addEventListener('submit', function(event
     formData.append('action', 'add_journal_entry');
 
     // Send data to the PHP back-end
-    fetch('patient_data.php', {
+    fetch('../php/journal.php', {
         method: 'POST',
         body: formData
     })

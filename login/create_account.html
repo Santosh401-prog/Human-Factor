@@ -35,6 +35,14 @@
 
                 <!-- Submit Button -->
                 <button type="submit" class="login-btn">Create Account</button>
+                        <!-- Go Back Button -->
+        <button onclick="goBack()">Go Back</button>
+
+        <script>
+            function goBack() {
+                window.history.back(); // This will go to the previous page in browser history
+            }
+        </script>
             </form>
         </section>
     </main>
@@ -42,6 +50,9 @@
     <footer>
         <p>&copy; 2024 CaRe Web Service</p>
     </footer>
+
+
+
 
     <script src="../patient/register.js"></script> <!-- Optional JavaScript for validation -->
 </body>
