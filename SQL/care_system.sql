@@ -41,3 +41,18 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     role ENUM('therapist', 'patient', 'staff', 'auditor') NOT NULL
 );
+
+-- Create the table to store therapist details
+CREATE TABLE IF NOT EXISTS therapists (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone VARCHAR(15) NOT NULL
+);
+
+-- Update appointments table to include therapist_id
+ALTER TABLE appointments ADD therapist_id INT;
+
+-- Ensure therapist is available for the appointment
+ALTER TABLE appointments
+ADD FOREIGN KEY (therapist_id) REFERENCES therapists(id) ON DELETE SET NULL;
