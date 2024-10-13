@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditor Portal - Patient Treatment History</title>
+    <link rel="stylesheet" href="records.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Auditor Portal</h1>
+
+        <!-- Patient selection form with therapist and treatment type filters -->
+        <form id="patient-form" class="form-group">
+            <label for="patient-select">Select Patient:</label>
+            <select id="patient-select">
+                <!-- Patient data will be dynamically populated from the database -->
+            </select>
+
+            <label for="therapist-select">Select Therapist (optional):</label>
+            <select id="therapist-select">
+                <option value="">All</option>
+                <!-- Therapist options will be dynamically populated -->
+            </select>
+
+            <label for="treatment-type-select">Select Treatment Type (optional):</label>
+            <select id="treatment-type-select">
+                <option value="">All</option>
+                <option value="Physical Therapy">Physical Therapy</option>
+                <option value="Surgery">Surgery</option>
+                <option value="Counseling">Counseling</option>
+                <!-- Additional treatment types can be added -->
+            </select>
+
+            <button type="submit">View History</button>
+        </form>
+
+        <!-- Go Back Button -->
+        <button id="go-back" class="go-back-btn">Go Back</button>
+
+        <!-- Results section where patient history will be displayed -->
+        <div id="patient-history">
+            <h2>Patient Treatment History</h2>
+            <ul id="history-list"></ul>
+        </div>
+    </div>
+
+    <script src="record.js"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>

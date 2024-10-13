@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditor's Reporting Section</title>
+    <link rel="stylesheet" href="report.css">
+</head>
+<body>
+    <div class="report-container">
+        <h1>Reporting and Recommendations</h1>
+        <div class="report-area">
+            <h2>Issues and Recommendations</h2>
+            <textarea id="reportText" placeholder="Describe the issues found..."></textarea>
+            <button onclick="submitReport()">Submit Report</button>
+        </div>
+        <div class="feedback">
+            <h3>Submitted Reports</h3>
+            <ul id="reportList"></ul>
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="goBack()">Go Back</button>
+            </div>
+        </div>
+    </div>
+    <script src="report.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Staff Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Professional Staff Dashboard</h1>
+    </header>
+
+    <main>
+        <!-- Links for scheduling and adding new patients -->
+        <section>
+            <a href="schedule_patient.html" class="btn">Schedule Patient Appointment</a>
+            <a href="add_patient.html" class="btn">Add New Patient</a>
+        </section>
+
+        <!-- Section to view patient demographic data -->
+        <section id="view-patient-section">
+            <h2>Patient Demographic Details</h2>
+            <table border="1" cellpadding="10" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Height (cm)</th>
+                        <th>Weight (kg)</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody id="patientData">
+                    <!-- Data will be loaded dynamically via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CaRe Web Service</p>
+    </footer>
+
+    <script src="staff_dashboard.js"></script>
+</body>
+</html>

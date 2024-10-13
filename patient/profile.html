@@ -13,34 +13,32 @@
     </header>
 
     <main>
-        <!-- Patient Details -->
         <section>
-            <h2>Profile Details</h2>
-            <div class="profile-info">
-                <img src="profile.jpg" alt="Patient Photo" class="profile-photo">
-                <p><strong>Name:</strong> Hawa</p>
-                <p><strong>Address:</strong> 6 Flecher Street</p>
-                <p><strong>Phone Number:</strong> +61 424 498 332</p>
-                <p><strong>Email Address:</strong> Hawa@gmail.com</p>
-            </div>
-        </section>
+            <h2>Your Profile Information</h2>
+            <img src="profile.jpg" alt="Patient Photo" class="profile-photo">
+            <!-- Display patient information from the database -->
+            <p><strong>Name:</strong> <?php echo htmlspecialchars($patient['name']); ?></p>
+            <p><strong>Age:</strong> <?php echo htmlspecialchars($patient['age']); ?></p>
+            <p><strong>Height:</strong> <?php echo htmlspecialchars($patient['height']); ?> cm</p>
+            <p><strong>Weight:</strong> <?php echo htmlspecialchars($patient['weight']); ?> kg</p>
+            <p><strong>Gender:</strong> <?php echo htmlspecialchars($patient['gender']); ?></p>
+            <p><strong>Email:</strong> <?php echo htmlspecialchars($patient['email']); ?></p>
+            <p><strong>Phone:</strong> <?php echo htmlspecialchars($patient['phone']); ?></p>
 
-        <!-- Set and Display Goal for This Week -->
-<!-- Set and Display Goals for This Week -->
-        <section>
-            <h2>Set Goals for This Week</h2>
-            <form id="goalForm">
+            <!-- Display or set this week's goals -->
+            <h3>Set Goals for This Week</h3>
+            <form id="goalForm" action="../php/set_goals.php" method="POST">
                 <!-- Exercise Goal -->
                 <label for="exerciseGoal">Exercise Goal (minutes):</label>
-                <input type="number" id="exerciseGoal" placeholder="e.g., 30" required>
-
+                <input type="number" id="exerciseGoal" name="goal_exercise" placeholder="e.g., 30" required>
+            
                 <!-- Sleep Goal -->
                 <label for="sleepGoal">Sleep Goal (hours):</label>
-                <input type="number" id="sleepGoal" placeholder="e.g., 8" required>
-
+                <input type="number" id="sleepGoal" name="goal_sleep" placeholder="e.g., 8" required>
+            
                 <!-- Eating Habit Goal -->
                 <label for="eatingGoal">Eating Habit Goal:</label>
-                <select id="eatingGoal" required>
+                <select id="eatingGoal" name="goal_eating" required>
                     <option value="healthy">Healthy</option>
                     <option value="balanced">Balanced</option>
                     <option value="unhealthy">Unhealthy</option>
