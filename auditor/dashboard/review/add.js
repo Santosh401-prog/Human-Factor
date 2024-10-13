@@ -1,7 +1,7 @@
-$(document).ready(function(){
-    // Initialize form and fetch dropdown data
-    fetchDropdownData('getTherapists.php', '#therapist');
-    fetchDropdownData('getPatients.php', '#patient');
+$(document).ready(function() {
+    // Fetch therapists and patients when the page is ready
+    fetchDropdownData('index.php?fetch=therapists', '#therapist');
+    fetchDropdownData('index.php?fetch=patients', '#patient');
 
     // Handle form submission
     $('#selection-form').submit(function(e) {
@@ -9,17 +9,17 @@ $(document).ready(function(){
         var therapist = $('#therapist').val();
         var patient = $('#patient').val();
         var caseType = $('#case-type').val();
-        var consultationLength = $('#consultation-length').val(); // Get consultation length value
+        var consultationLength = $('#consultation-length').val();
 
-        // Fetch and display data based on selected values
+        // Fetch and display data
         $.ajax({
-            url: 'fetchData.php', // PHP file to fetch detailed data
+            url: 'index.php',
             type: 'POST',
             data: {
                 therapist: therapist,
                 patient: patient,
                 caseType: caseType,
-                consultationLength: consultationLength // Include in AJAX data
+                consultationLength: consultationLength
             },
             success: function(response) {
                 $('#results-body').html(response);
@@ -32,9 +32,10 @@ $(document).ready(function(){
     });
 });
 
-function fetchDropdownData(file, selector) {
+// Function to fetch therapists and patients
+function fetchDropdownData(url, selector) {
     $.ajax({
-        url: file,
+        url: url,
         type: 'GET',
         success: function(response) {
             $(selector).html(response);
@@ -45,6 +46,7 @@ function fetchDropdownData(file, selector) {
     });
 }
 
+// Go back button function
 function goBack() {
     window.history.back();
 }

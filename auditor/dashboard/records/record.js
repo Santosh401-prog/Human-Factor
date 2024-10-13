@@ -1,11 +1,11 @@
-// Fetch the list of patients and therapists from the server when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('/api/patients')
+    // Fetch the list of patients and therapists from the server when the page loads
+    fetch('record.php?fetch=patients')
         .then(response => response.json())
         .then(data => populatePatientSelect(data))
         .catch(error => console.error('Error fetching patient list:', error));
 
-    fetch('/api/therapists')
+    fetch('record.php?fetch=therapists')
         .then(response => response.json())
         .then(data => populateTherapistSelect(data))
         .catch(error => console.error('Error fetching therapist list:', error));
@@ -43,7 +43,7 @@ document.getElementById('patient-form').addEventListener('submit', function(even
     const therapist = document.getElementById('therapist-select').value;
     const treatmentType = document.getElementById('treatment-type-select').value;
 
-    const query = `/api/patient-history/${patientId}?therapist=${therapist}&treatment=${treatmentType}`;
+    const query = `record.php/api/patient-history/${patientId}?therapist=${therapist}&treatment=${treatmentType}`;
     
     fetch(query)
         .then(response => response.json())
