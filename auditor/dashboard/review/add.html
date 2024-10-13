@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auditor Dashboard</title>
-    <link rel="stylesheet" href="add.css"> <!-- Ensure your CSS file is correctly linked -->
+    <link rel="stylesheet" href="add.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -14,18 +14,47 @@
 
     <main>
         <section>
-            <h2>Therapist Data</h2>
-            <table id="therapist-overview-table" border="1" cellpadding="10" cellspacing="0">
+            <h2>Select Options</h2>
+            <form id="selection-form">
+                <label for="therapist">Select Therapist:</label>
+                <select id="therapist" name="therapist">
+                    <!-- Therapist options will be populated here dynamically -->
+                </select><br><br>
+
+                <label for="patient">Select Patient:</label>
+                <select id="patient" name="patient">
+                    <!-- Patient options will be populated here dynamically -->
+                </select><br><br>
+
+                <label for="case-type">Select Case Type:</label>
+                <select id="case-type" name="case-type">
+                    <option value="general">General</option>
+                    <option value="mental">Mental Health</option>
+                    <option value="physical">Physical Therapy</option>
+                </select><br><br>
+
+                <label for="consultation-length">Consultation Length (in minutes):</label>
+                <input type="number" id="consultation-length" name="consultation-length" min="0"><br><br>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <!-- Section to display the selected data -->
+        <section style="display:none;" id="results-section">
+            <h2>Therapist Overview</h2>
+            <table id="results-table" border="1" cellpadding="10" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Therapist Name</th>
                         <th>Number of Patients</th>
                         <th>Types of Cases</th>
                         <th>Average Consultation Length (Minutes)</th>
+                        <th>Selected Consultation Length</th> <!-- New column header -->
                     </tr>
                 </thead>
-                <tbody id="therapist-overview-body">
-                    <!-- Therapist data will be populated here by JS -->
+                <tbody id="results-body">
+                    <!-- Results will be populated here -->
                 </tbody>
             </table>
         </section>
@@ -37,6 +66,6 @@
         </div>
     </footer>
 
-    <script src="add.js"></script> <!-- Ensure this is the correct path to your JavaScript file -->
+    <script src="add.js"></script>
 </body>
 </html>
