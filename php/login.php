@@ -32,10 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Redirect based on the user's role
         switch ($user['role']) {
             case 'patient':
-                header("Location: ../patient/login.html");
+                header("Location: ../patient/patient.html");
                 break;
             case 'therapist':
-                header("Location: ../therapist/therapist_dashboard.html");
+                header("Location: ../therapist/therapistdashboard.html");
                 break;
             case 'staff':
                 header("Location: ../staff/staff_dashboard.html");

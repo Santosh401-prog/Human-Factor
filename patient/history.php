@@ -80,8 +80,14 @@
                 </tbody>
             </table>
         </section>
-    </main>
 
+    </main>
+    <button onclick="goBack()">Go Back</button>
+
+    <script>
+    function goBack() {
+    window.history.back(); // This will go to the previous page in browser history
+}</script>
     <footer>
         <p>&copy; 2024 CaRe Web Service</p>
     </footer>
