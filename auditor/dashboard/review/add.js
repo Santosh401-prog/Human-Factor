@@ -4,9 +4,9 @@ $(document).ready(function() {
 
 function fetchPatientData() {
     $.ajax({
-        url: 'path/to/php/patient_data.php', // Update the path as necessary
+        url: 'patient_data.php', // Correct path to your PHP file
         method: 'GET',
-        data: { action: 'fetch' }, // Specify the action for PHP
+        data: { action: 'fetch' }, // Optional, depending on your PHP logic
         dataType: 'json',
         success: function(data) {
             populateTable(data);
