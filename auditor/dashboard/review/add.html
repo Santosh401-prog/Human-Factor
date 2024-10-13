@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="group-27">
-    <title>Therapist Overview | CaRe Web Service</title>
-    <link rel="stylesheet" href="add.css">
+    <title>Auditor Dashboard</title>
+    <link rel="stylesheet" href="add.css"> <!-- Ensure your CSS file is correctly linked -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -30,15 +30,18 @@
             </table>
         </section>
     </main>
-<div style="text-align: center; margin-top: 20px;">
-    <button onclick="goBack()">Go Back</button>
-</div>
 
     <footer>
-    
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="goBack()">Go Back</button>
+        </div>
     </footer>
 
-    
-    <script src="add.js"></script>
+    <script src="add.js"></script> <!-- Ensure this is the correct path to your JavaScript file -->
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>

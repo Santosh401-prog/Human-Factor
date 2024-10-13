@@ -1,45 +1,33 @@
-// Sample data for therapists
-const therapists = [
-    {
-        name: 'Emily parker',
-        patients: 10,
-        cases: ['Anxiety', 'Depression', 'PTSD'],
-        consultationLength: 45 // average in minutes
-    },
-    {
-        name: 'Madan Jhonson',
-        patients: 8,
-        cases: ['OCD', 'Phobias', 'Bipolar Disorder'],
-        consultationLength: 50
-    },
-    {
-        name: 'Shane Watson',
-        patients: 12,
-        cases: ['Schizophrenia', 'ADHD', 'Depression'],
-        consultationLength: 40
-    }
-];
+$(document).ready(function() {
+    fetchPatientData();
+});
 
-// Function to populate the table
-const therapistTableBody = document.getElementById('therapist-overview-body');
-
-function populateTherapistData() {
-    therapists.forEach(therapist => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${therapist.name}</td>
-            <td>${therapist.patients}</td>
-            <td>${therapist.cases.join(', ')}</td>
-            <td>${therapist.consultationLength}</td>
-        `;
-        therapistTableBody.appendChild(row);
+function fetchPatientData() {
+    $.ajax({
+        url: 'path/to/php/patient_data.php', // Update the path as necessary
+        method: 'GET',
+        data: { action: 'fetch' }, // Specify the action for PHP
+        dataType: 'json',
+        success: function(data) {
+            populateTable(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Error fetching data: ' + textStatus);
+        }
     });
 }
 
-// Call the function to populate data on page load
-populateTherapistData();
+function populateTable(data) {
+    var tbody = $('#therapist-overview-body');
+    tbody.empty(); // Clear existing data
 
-// Function to handle the 'Go Back' button action
-function goBack() {
-    window.history.back(); // Navigate back to the previous page
+    data.forEach(function(item) {
+        var row = '<tr>' +
+            '<td>' + item.name + '</td>' +
+            '<td>' + item.patients + '</td>' +
+            '<td>' + item.cases + '</td>' +
+            '<td>' + item.avg_length + '</td>' +
+            '</tr>';
+        tbody.append(row);
+    });
 }
