@@ -1,12 +1,11 @@
 $(document).ready(function() {
-    fetchPatientData();
+    fetchTherapistData();  // Changed to fetch therapist data
 });
 
-function fetchPatientData() {
+function fetchTherapistData() {
     $.ajax({
-        url: 'php/patient_data.php', // Correct path to your PHP file
+        url: 'php/therapist_data.php', // Path to your PHP file for fetching therapist data
         method: 'GET',
-        data: { action: 'fetch' }, // Optional, depending on your PHP logic
         dataType: 'json',
         success: function(data) {
             populateTable(data);
