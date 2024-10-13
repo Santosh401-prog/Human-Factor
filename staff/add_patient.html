@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Patient | CaRe Web Service</title>
+    <title>Add New Patient</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,9 +12,10 @@
     </header>
 
     <main>
+        <!-- Form to Add New Patient -->
         <section id="add-patient-section">
-            <h2>Enter Patient Details</h2>
-            <form id="addPatientForm" action="../php/patient_data.php" method="POST">
+            <h2>Add New Patient</h2>
+            <form id="addPatientForm">
                 <!-- Name -->
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -51,10 +52,33 @@
                 <button type="submit">Add Patient</button>
             </form>
         </section>
+
+        <!-- Section to view patient demographic data -->
+        <section id="view-patient-section">
+            <h2>Patient Demographic Details</h2>
+            <table border="1" cellpadding="10" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Height (cm)</th>
+                        <th>Weight (kg)</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody id="patientData">
+                    <!-- Data will be loaded dynamically via JavaScript -->
+                </tbody>
+            </table>
+        </section>
     </main>
 
     <footer>
         <p>&copy; 2024 CaRe Web Service</p>
     </footer>
+
+    <script src="staff_dashboard.js"></script>
 </body>
 </html>

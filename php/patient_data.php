@@ -17,29 +17,29 @@ try {
     die("Could not connect to the database: " . $e->getMessage());
 }
 
-// Check if the form has been submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = $_POST['name'];
-    $age = $_POST['age'];
-    $height = $_POST['height'];
-    $weight = $_POST['weight'];
-    $gender = $_POST['gender'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-
-    // Insert data into the patients table
-    try {
-        $stmt = $pdo->prepare("INSERT INTO patient (name, age, height, weight, gender, email, phone)
-                               VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$name, $age, $height, $weight, $gender, $email, $phone]);
-
-        // Success message
-        echo "Patient added successfully!";
-    } catch (PDOException $e) {
-        // Show any errors that occur during the insertion
-        echo "Error: " . $e->getMessage();
+// Handle different actions
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Check if 'action' exists in the $_POST array
+    if (isset($_POST['action'])) {
+        if ($_POST['action'] === 'add') {
+            // Add new patient
+            $stmt = $pdo->prepare("INSERT INTO patients (name, age, height, weight, gender, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$_POST['name'], $_POST['age'], $_POST['height'], $_POST['weight'], $_POST['gender'], $_POST['email'], $_POST['phone']]);
+            echo "Patient added successfully!";
+        } elseif ($_POST['action'] === 'schedule_appointment') {
+            // Schedule an appointment
+            $stmt = $pdo->prepare("INSERT INTO appointments (patient_id, appointment_date, appointment_time, therapist_id) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$_POST['patient_id'], $_POST['appointment_date'], $_POST['appointment_time'], $_POST['therapist_id']]);
+            echo "Appointment scheduled successfully!";
+        } else {
+            echo "Invalid action specified.";
+        }
+    } else {
+        echo "No action specified in the request.";
     }
-} else {
-    echo "Form not submitted.";
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'fetch') {
+    // Fetch all patients
+    $stmt = $pdo->query("SELECT * FROM patients");
+    echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
 }
 ?>

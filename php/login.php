@@ -38,10 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header("Location: ../therapist/therapistdashboard.html");
                 break;
             case 'staff':
-                header("Location: ../staff/staff_dashboard.html");
+                header("Location: ../staff/staff_portal.html");
                 break;
             case 'auditor':
-                header("Location: ../auditor/auditor_dashboard.html");
+                header("Location: ../auditor/dashboard/dash.html");
                 break;
             default:
                 header("Location: ../login.html");

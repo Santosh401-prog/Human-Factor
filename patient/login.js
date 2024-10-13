@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // // Add an event listener to the role selection
 // document.getElementById('role').addEventListener('change', function() {
 //     var role = this.value;
@@ -21,7 +21,7 @@
 //             alert('Please select a valid role');
 //     }
 // });
-=======
+
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission
 
@@ -29,20 +29,16 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     // Redirect or alert based on the selected role
     if (role === 'patient') {
-        window.location.href = 'patient.html'; // Redirect to patient.html
+        window.location.href = '../patient/patient.html'; // Redirect to patient.html
     } 
     else if (role === 'staff') {
-<<<<<<< HEAD
-        window.location.href = 'Prof_Staff/staff_portal.php'; // Redirect to staff_portal.php
-=======
-        window.location.href = 'staff_portal.html'; // Redirect to staff_portal
->>>>>>> 57e604fa2904f1709936fb37f15b45984b068d1e
+        window.location.href = '../staff/staff_portal.html'; // Redirect to staff_portal
     } 
     else if (role === 'therapist') {
-        window.location.href = 'therapistdashboard.html'; // Redirect to therapist portal
+        window.location.href = '../therapist/therapistdashboard.html'; // Redirect to therapist portal
     } 
     else if (role === 'auditor') {
-        window.location.href = 'auditor.html'; // Redirect to auditor portal
+        window.location.href = '../auditor/dashboard/dash.html'; // Redirect to auditor portal
     } 
     // Separate alerts based on roles
     else if (role !== 'patient') {
@@ -58,5 +54,3 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         alert('Only auditors are allowed for this demo.');
     }
 });
-
->>>>>>> main

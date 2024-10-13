@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Records Overview | Auditor Access</title>
+    <link rel="stylesheet" href="records.css">
+</head>
+<body>
+    <header>
+        <h1>Patient Records Overview - Auditor Access</h1>
+    </header>
+
+    <main class="main-content">
+        <!-- Patient Records Section -->
+        <section id="patient-records">
+            <h2>Patient Records</h2>
+            <table id="patientRecordsTable">
+                <thead>
+                    <tr>
+                        <th>Patient ID</th>
+                        <th>Last Consultation Date</th>
+                        <th>Number of Visits</th>
+                        <th>Assigned Therapist</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="patientRecordsTableBody">
+                    <!-- Patient data will be dynamically populated here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="goBack()">Go Back</button>
+    </div>
+    <footer>
+       
+    </footer>
+
+    <script src="record.js"></script> <!-- Link to your JS file -->
+</body>
+</html>

@@ -43,6 +43,11 @@
 
                 <label for="appointmentTime">Appointment Time:</label>
                 <input type="time" id="appointmentTime" name="appointmentTime" required>
+                  <!-- Add a dropdown to select an available therapist -->
+                <label for="therapist">Select Therapist:</label>
+                <select id="therapist" name="therapist" required>
+                    <!-- This will be dynamically populated via JavaScript -->
+                </select>
 
                 <button type="submit">Schedule Appointment</button>
             </form>
@@ -54,5 +59,6 @@
     </footer>
 
     <script src="schedule.js"></script>
+    
 </body>
 </html>
