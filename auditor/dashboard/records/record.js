@@ -1,12 +1,12 @@
 $(document).ready(function() {
-    fetchTherapistData();  // Trigger the function to fetch therapist data on page load
+    fetchPatientData();  // Trigger the function to fetch patient data on page load
 });
 
-function fetchTherapistData() {
+function fetchPatientData() {
     $.ajax({
-        url: 'php/therapist_data.php', // Ensure this is the correct path to your PHP file
+        url: 'php/review.php',  // Ensure the correct path to your PHP file
         method: 'GET',
-        dataType: 'json',
+        dataType: 'json',       // Expect JSON response
         success: function(data) {
             console.log("Data received:", data);  // Debugging statement to view the fetched data
             populateTable(data);
@@ -18,15 +18,17 @@ function fetchTherapistData() {
 }
 
 function populateTable(data) {
-    var tbody = $('#therapist-overview-body');
+    var tbody = $('#patientRecordsTableBody');
     tbody.empty();  // Clear existing data before appending new data
 
+    // Loop through the data and create table rows
     data.forEach(function(item) {
         var row = '<tr>' +
-            '<td>' + item.name + '</td>' +
-            '<td>' + item.patients + '</td>' +
-            '<td>' + item.cases + '</td>' +
-            '<td>' + item.avg_length + '</td>' +
+            '<td>' + item.patient_id + '</td>' +
+            '<td>' + item.last_consultation + '</td>' +
+            '<td>' + item.visits + '</td>' +
+            '<td>' + item.assigned_therapist + '</td>' +
+            '<td>' + item.status + '</td>' +
             '</tr>';
         tbody.append(row);  // Append each row to the table body
     });
