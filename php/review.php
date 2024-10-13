@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";  // Change this if your MySQL username is different
 $password = "";  // Change if you have a password
-$dbname = "therapist_overview";
+$dbname = "care_system.sql;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
