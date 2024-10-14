@@ -3,9 +3,9 @@ session_start();
 
 // Database connection
 $host = 'localhost';
-$dbname = 'care_system'; // Your database name
-$username = 'root'; // Your MySQL username
-$password = ''; // Your MySQL password
+$dbname = 'care_system'; 
+$username = 'root'; 
+$password = ''; 
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -14,20 +14,31 @@ try {
     die("Could not connect to the database: " . $e->getMessage());
 }
 
+// Process the login form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $role = $_POST['role'];
+    $entered_name = $_POST['username']; // The name patient enters
+    $entered_password = $_POST['password']; // The patient's password
+    
+    // Fetch the patient by name
+    $stmt = $pdo->prepare("SELECT * FROM patients WHERE name = ?");
+    $stmt->execute([$entered_name]);
+    $patient = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    // Check if patient exists and password matches
+    if ($patient && password_verify($entered_password, $patient['password'])) {
+        // Store patient name and ID in session
+        $_SESSION['patient_name'] = $patient['name'];
+        $_SESSION['patient_id'] = $patient['id'];
 
-    // Check the database for the user
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ? AND role = ?");
-    $stmt->execute([$username, $role]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Redirect to profile page
+        header("Location: ../patient/profile.html");
+        exit();
+    } else {
+        echo "Invalid login credentials. Please try again.";
+    }
 
-    if ($user && password_verify($password, $user['password'])) {
-        // Successful login, set session variables
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role'];
+
+
 
         // Redirect based on the user's role
         switch ($user['role']) {
@@ -48,9 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 break;
         }
         exit();
-    } else {
+    }else {
         // Invalid login
         echo "Invalid username, password, or role.";
     }
-}
+
 ?>
