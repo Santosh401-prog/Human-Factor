@@ -5,10 +5,6 @@ $dbname = 'care_system';
 $username = 'root';
 $password = '';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -17,21 +13,20 @@ try {
     exit();
 }
 
-// Fetch therapists
-$stmtTherapists = $pdo->prepare("SELECT id, username FROM users WHERE role = 'therapist'");
-$stmtTherapists->execute();
-$therapists = $stmtTherapists->fetchAll(PDO::FETCH_ASSOC);
+// Determine whether to fetch therapists or patients
+$fetch = isset($_GET['fetch']) ? $_GET['fetch'] : '';
 
-// Fetch patients
-$stmtPatients = $pdo->prepare("SELECT id, username FROM users WHERE role = 'patient'");
-$stmtPatients->execute();
-$patients = $stmtPatients->fetchAll(PDO::FETCH_ASSOC);
-
-// Return as JSON
-header('Content-Type: application/json');  // Ensure JSON header is set
-if ($therapists && $patients) {
-    echo json_encode(['therapists' => $therapists, 'patients' => $patients]);
+if ($fetch == 'therapists') {
+    $stmt = $pdo->prepare("SELECT id, username FROM users WHERE role = 'therapist'");
+} elseif ($fetch == 'patients') {
+    $stmt = $pdo->prepare("SELECT id, username FROM users WHERE role = 'patient'");
 } else {
-    echo json_encode(['error' => 'No therapists or patients found']);
+    echo json_encode(['error' => 'Invalid request']);
+    exit();
 }
+
+$stmt->execute();
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+echo json_encode([$fetch => $data]);
 ?>

@@ -1,38 +1,62 @@
+$(document).ready(function() {
+    // Populate the dropdowns with therapists and patients
+    populateDropdowns();
+
+    // Handle form submission
+    $('#selection-form').on('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        submitAudit(); // Call the submitAudit function
+    });
+});
+
+// Function to populate the therapist and patient dropdowns
 function populateDropdowns() {
-    fetch('./get_users.php')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not OK');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);  // Log the response to check what is returned
+    // Fetch therapists and patients
+    fetchDropdownData('therapists', '#therapist'); // Populate therapist dropdown
+    fetchDropdownData('patients', '#patient');     // Populate patient dropdown
+}
+
+
+// Generic function to fetch data from the server and populate a dropdown
+function fetchDropdownData(type, dropdownId) {
+    $.ajax({
+        url: 'http://localhost/human-Factor/auditor/dashboard/review/get_users.php', // Ensure this is the correct path to your PHP file
+        method: 'GET',
+        data: { fetch: type }, // Pass 'therapists' or 'patients' as a parameter
+        dataType: 'json',
+        success: function(data) {
             if (data.error) {
                 alert(data.error);
             } else {
-                const therapistSelect = document.getElementById('therapist');
-                const patientSelect = document.getElementById('patient');
-
-                // Populate therapists
-                data.therapists.forEach(therapist => {
-                    const option = document.createElement('option');
-                    option.value = therapist.id;
-                    option.textContent = therapist.username;
-                    therapistSelect.appendChild(option);
-                });
-
-                // Populate patients
-                data.patients.forEach(patient => {
-                    const option = document.createElement('option');
-                    option.value = patient.id;
-                    option.textContent = patient.username;
-                    patientSelect.appendChild(option);
+                // Populate the dropdown with the returned data
+                $.each(data[type], function(index, user) {
+                    $(dropdownId).append($('<option>', {
+                        value: user.id,
+                        text: user.username
+                    }));
                 });
             }
-        })
-        .catch(error => {
-            console.error('Error fetching user data:', error);
-            alert('Error fetching user data: ' + error.message);
-        });
+        },
+        error: function() {
+            console.error('Error fetching ' + type + ' data.');
+        }
+    });
+}
+
+// Function to submit the form
+function submitAudit() {
+    var formData = $('#selection-form').serialize();
+
+    $.ajax({
+        url: 'http://localhost/human-Factor/auditor/dashboard/review/get_users.php?fetch=therapistsget_users.php', // Ensure this is the correct path to your PHP file
+        method: 'POST',
+        data: formData,
+        success: function(response) {
+            alert(response); // Show success message
+            $('#results-section').show(); // Show the results section
+        },
+        error: function() {
+            alert('Error submitting the form.');
+        }
+    });
 }
