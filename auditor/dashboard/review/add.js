@@ -1,52 +1,38 @@
-$(document).ready(function() {
-    // Fetch therapists and patients when the page is ready
-    fetchDropdownData('index.php?fetch=therapists', '#therapist');
-    fetchDropdownData('index.php?fetch=patients', '#patient');
-
-    // Handle form submission
-    $('#selection-form').submit(function(e) {
-        e.preventDefault(); // Prevent default form submission
-        var therapist = $('#therapist').val();
-        var patient = $('#patient').val();
-        var caseType = $('#case-type').val();
-        var consultationLength = $('#consultation-length').val();
-
-        // Fetch and display data
-        $.ajax({
-            url: 'index.php',
-            type: 'POST',
-            data: {
-                therapist: therapist,
-                patient: patient,
-                caseType: caseType,
-                consultationLength: consultationLength
-            },
-            success: function(response) {
-                $('#results-body').html(response);
-                $('#results-section').show(); // Show results section
-            },
-            error: function(xhr, status, error) {
-                console.log("Error: " + error);
+function populateDropdowns() {
+    fetch('./get_users.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not OK');
             }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);  // Log the response to check what is returned
+            if (data.error) {
+                alert(data.error);
+            } else {
+                const therapistSelect = document.getElementById('therapist');
+                const patientSelect = document.getElementById('patient');
+
+                // Populate therapists
+                data.therapists.forEach(therapist => {
+                    const option = document.createElement('option');
+                    option.value = therapist.id;
+                    option.textContent = therapist.username;
+                    therapistSelect.appendChild(option);
+                });
+
+                // Populate patients
+                data.patients.forEach(patient => {
+                    const option = document.createElement('option');
+                    option.value = patient.id;
+                    option.textContent = patient.username;
+                    patientSelect.appendChild(option);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+            alert('Error fetching user data: ' + error.message);
         });
-    });
-});
-
-// Function to fetch therapists and patients
-function fetchDropdownData(url, selector) {
-    $.ajax({
-        url: url,
-        type: 'GET',
-        success: function(response) {
-            $(selector).html(response);
-        },
-        error: function(xhr, status, error) {
-            console.log("Error fetching data: " + error);
-        }
-    });
-}
-
-// Go back button function
-function goBack() {
-    window.history.back();
 }

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auditor Dashboard</title>
     <link rel="stylesheet" href="add.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -17,30 +16,32 @@
             <h2>Select Options</h2>
             <form id="selection-form">
                 <label for="therapist">Select Therapist:</label>
-                <select id="therapist" name="therapist">
+                <select id="therapist" name="therapist" required>
+                    <option value="" disabled selected>Select a therapist</option>
                     <!-- Therapist options will be populated here dynamically -->
                 </select><br><br>
 
                 <label for="patient">Select Patient:</label>
-                <select id="patient" name="patient">
+                <select id="patient" name="patient" required>
+                    <option value="" disabled selected>Select a patient</option>
                     <!-- Patient options will be populated here dynamically -->
                 </select><br><br>
 
                 <label for="case-type">Select Case Type:</label>
-                <select id="case-type" name="case-type">
+                <select id="case-type" name="case-type" required>
                     <option value="general">General</option>
                     <option value="mental">Mental Health</option>
                     <option value="physical">Physical Therapy</option>
                 </select><br><br>
 
                 <label for="consultation-length">Consultation Length (in minutes):</label>
-                <input type="number" id="consultation-length" name="consultation-length" min="0"><br><br>
+                <input type="number" id="consultation-length" name="consultation-length" min="0" required><br><br>
 
                 <button type="submit">Submit</button>
             </form>
         </section>
 
-        <!-- Section to display the selected data -->
+        <!-- Section to display the selected data after submission -->
         <section style="display:none;" id="results-section">
             <h2>Therapist Overview</h2>
             <table id="results-table" border="1" cellpadding="10" cellspacing="0">
@@ -54,18 +55,21 @@
                     </tr>
                 </thead>
                 <tbody id="results-body">
-                    <!-- Results will be populated here -->
+                    <!-- Results will be populated here dynamically after submission -->
                 </tbody>
             </table>
+            <button type="button" onclick="goBack()">Go Back</button>
         </section>
     </main>
 
-    <footer>
-        <div style="text-align: center; margin-top: 20px;">
-            <button onclick="goBack()">Go Back</button>
-        </div>
-    </footer>
+    <footer></footer>
 
     <script src="add.js"></script> <!-- Link to your JavaScript file -->
+    
+    <script>
+        function goBack() {
+            window.history.back(); // This will go to the previous page in browser history
+        }
+    </script>
 </body>
 </html>
