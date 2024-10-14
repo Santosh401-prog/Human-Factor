@@ -3,17 +3,18 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchJournalEntries() {
-    fetch('history.php')
+    fetch('./history.php')  // Ensure this is pointing to the correct PHP file
         .then(response => response.json())
         .then(data => {
+            console.log(data); // Log the data returned from the PHP backend
+
             if (data.error) {
-                alert(data.error);
+                alert(data.error);  // Show an error if it exists
             } else {
                 const journalHistoryBody = document.getElementById('journal-history-body');
+                journalHistoryBody.innerHTML = '';  // Clear previous entries
 
-                // Clear any existing entries in the table
-                journalHistoryBody.innerHTML = '';
-
+                // Populate the table with journal entries
                 data.forEach(entry => {
                     const rowHTML = `
                         <tr>
@@ -25,8 +26,6 @@ function fetchJournalEntries() {
                             <td>${entry.journal_text}</td>
                         </tr>
                     `;
-
-                    // Add the row to the table
                     journalHistoryBody.innerHTML += rowHTML;
                 });
             }
