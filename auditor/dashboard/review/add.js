@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // Fetch therapists and patients when the page is ready
-    fetchDropdownData('index.php?fetch=therapists', '#therapist');
-    fetchDropdownData('index.php?fetch=patients', '#patient');
+    fetchDropdownData('../php/index.php?fetch=therapists', '#therapist');
+    fetchDropdownData('../php/index.php?fetch=patients', '#patient');
 
     // Handle form submission
     $('#selection-form').submit(function(e) {
@@ -13,7 +13,7 @@ $(document).ready(function() {
 
         // Fetch and display data
         $.ajax({
-            url: 'index.php',
+            url: '../php/index.php',
             type: 'POST',
             data: {
                 therapist: therapist,
@@ -39,6 +39,7 @@ function fetchDropdownData(url, selector) {
         type: 'GET',
         success: function(response) {
             $(selector).html(response);
+            console.log(response); // Debugging: Log the response to check the fetched data
         },
         error: function(xhr, status, error) {
             console.log("Error fetching data: " + error);
