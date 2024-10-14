@@ -1,40 +1,35 @@
-// Load past entries and last week's activities from localStorage when the page loads
-window.onload = function() {
-    // Retrieve the last week's activities
-    const lastWeekActivity = JSON.parse(localStorage.getItem('lastWeekActivity'));
-    if (lastWeekActivity) {
-        appendToTable('last-week-activities-body', lastWeekActivity);
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    fetchJournalEntries();
+});
 
-    // Retrieve past journal entries
-    const journalHistory = JSON.parse(localStorage.getItem('journalHistory')) || [];
-    
-    // Append each journal entry to the table
-    journalHistory.forEach(function(entry) {
-        appendToTable('journal-history-body', entry);
-    });
-};
+function fetchJournalEntries() {
+    fetch('history.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                const journalHistoryBody = document.getElementById('journal-history-body');
 
-// Function to append data to the table
-function appendToTable(tableId, entry) {
-    const tableBody = document.getElementById(tableId);
+                // Clear any existing entries in the table
+                journalHistoryBody.innerHTML = '';
 
-    const row = document.createElement('tr');
+                data.forEach(entry => {
+                    const rowHTML = `
+                        <tr>
+                            <td>${entry.entry_date}</td>
+                            <td>${entry.mood}</td>
+                            <td>${entry.sleep_hours}</td>
+                            <td>${entry.eating_habit}</td>
+                            <td>${entry.exercise_minutes}</td>
+                            <td>${entry.journal_text}</td>
+                        </tr>
+                    `;
 
-    // Assuming the entry is an object with these properties
-    row.innerHTML = `
-        <td>${entry.date}</td>
-        <td>${capitalizeMood(entry.mood)}</td>
-        <td>${entry.sleep}</td>
-        <td>${entry.eating}</td>
-        <td>${entry.exercise}</td>
-        <td>${entry.journalEntry}</td>
-    `;
-
-    tableBody.appendChild(row);
-}
-
-// Function to capitalize mood
-function capitalizeMood(mood) {
-    return mood.charAt(0).toUpperCase() + mood.slice(1);
+                    // Add the row to the table
+                    journalHistoryBody.innerHTML += rowHTML;
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching journal entries:', error));
 }

@@ -12,6 +12,12 @@
     </header>
 
     <main>
+        <!-- Display success or error message based on the query string -->
+        <section id="messages">
+            <p id="success-message" style="display: none; color: green;">Account created successfully!</p>
+            <p id="error-message" style="display: none; color: red;"></p>
+        </section>
+
         <section id="create-account-section">
             <h2>Enter Account Details</h2>
             <form id="registerForm" action="../php/register.php" method="POST">
@@ -35,14 +41,9 @@
 
                 <!-- Submit Button -->
                 <button type="submit" class="login-btn">Create Account</button>
-                        <!-- Go Back Button -->
-        <button onclick="goBack()">Go Back</button>
 
-        <script>
-            function goBack() {
-                window.history.back(); // This will go to the previous page in browser history
-            }
-        </script>
+                <!-- Go Back Button -->
+                <button type="button" onclick="goBack()">Go Back</button>
             </form>
         </section>
     </main>
@@ -51,9 +52,11 @@
         <p>&copy; 2024 CaRe Web Service</p>
     </footer>
 
-
-
-
-    <script src="../patient/register.js"></script> <!-- Optional JavaScript for validation -->
+    <script src="register.js"></script>
+    <script>
+        function goBack() {
+            window.history.back(); // This will go to the previous page in browser history
+        }
+    </script>
 </body>
 </html>

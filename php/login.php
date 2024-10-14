@@ -16,35 +16,48 @@ try {
 
 // Process the login form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $entered_name = $_POST['username']; // The name patient enters
-    $entered_password = $_POST['password']; // The patient's password
-    
-    // Fetch the patient by name
-    $stmt = $pdo->prepare("SELECT * FROM patients WHERE name = ?");
-    $stmt->execute([$entered_name]);
-    $patient = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    // Check if patient exists and password matches
-    if ($patient && password_verify($entered_password, $patient['password'])) {
-        // Store patient name and ID in session
-        $_SESSION['patient_name'] = $patient['name'];
-        $_SESSION['patient_id'] = $patient['id'];
+    $entered_name = $_POST['username'];  // The name the user enters
+    $entered_password = $_POST['password'];  // The user's password
+    $entered_role = $_POST['role'];  // The user's role (patient, therapist, etc.)
 
-        // Redirect to profile page
-        header("Location: ../patient/profile.html");
+    // Check if all form fields are filled out
+    if (empty($entered_name) || empty($entered_password) || empty($entered_role)) {
+        header("Location: ../login.html?error=All fields are required.");
         exit();
-    } else {
-        echo "Invalid login credentials. Please try again.";
     }
 
+    // Fetch user from 'users' table based on the entered username and role
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ? AND role = ?");
+    $stmt->execute([$entered_name, $entered_role]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Check if user exists and password matches
+    if ($user && password_verify($entered_password, $user['password'])) {
+        // If the user is a patient, fetch their details from the 'patients' table
+        if ($entered_role === 'patient') {
+            $stmt = $pdo->prepare("SELECT * FROM patients WHERE name = ?");
+            $stmt->execute([$entered_name]);
+            $patient = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            if ($patient) {
+                // Store patient data in session
+                $_SESSION['patient_name'] = $patient['name'];
+                $_SESSION['patient_id'] = $patient['id'];
+                $_SESSION['patient_email'] = $patient['email'];
 
+                // Redirect to patient profile page
+                header("Location: ../patient/patient.html");
+                exit();
+            } else {
+                // Redirect back to login with error
+                header("Location: ../login.html?error=No patient found with that name.");
+                exit();
+            }
+        }
+
+        // Handle other roles (therapist, staff, auditor)
         // Redirect based on the user's role
         switch ($user['role']) {
-            case 'patient':
-                header("Location: ../patient/login.html");
-                break;
             case 'therapist':
                 header("Location: ../therapist/therapistdashboard.html");
                 break;
@@ -59,9 +72,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 break;
         }
         exit();
-    }else {
-        // Invalid login
-        echo "Invalid username, password, or role.";
+    } else {
+        // Invalid login credentials, redirect back to login with error message
+        header("Location: ../login.html?error=Invalid login credentials.");
+        exit();
     }
-
+}
 ?>

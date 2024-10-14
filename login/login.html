@@ -12,12 +12,16 @@
     </header>
 
     <main>
+        <!-- Display error message if login fails -->
+        <?php if (isset($_GET['error'])): ?>
+            <p style="color: red;"><?php echo htmlspecialchars($_GET['error']); ?></p>
+        <?php endif; ?>
+
         <section>
             <form id="loginForm" action="../php/login.php" method="POST">
-
-                <!-- Username/Email Input -->
-                <label for="username">Username/Email:</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username or email" required>
+                <!-- Username Input -->
+                <label for="username">Name:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
 
                 <!-- Password Input -->
                 <label for="password">Password:</label>
@@ -36,7 +40,6 @@
                 <!-- Login Button -->
                 <button type="submit" class="login-btn">Login</button>
                 <a href="create_account.html">Don't have an account? Create one now!</a>
-
             </form>
         </section>
     </main>
@@ -44,9 +47,5 @@
     <footer>
         <p>&copy; 2024 CaRe Web Service</p>
     </footer>
-
-    <!-- Add JavaScript to handle form submission if needed -->
-    <script src="../patient/login.js"></script>
-    
 </body>
 </html>
