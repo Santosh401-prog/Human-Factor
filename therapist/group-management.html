@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Management</title>
+    <link rel="stylesheet" href="therapist.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <ul>
+        <li><a href="therapistdashboard.html">Dashboard</a></li>
+        <li><a href="patient-data.html">Patient Summary</a></li>
+        <li><a href="group-management.html">Group Management</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <header>
+        <h1>Group Management</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Create Group</h2>
+            <form id="group-form">
+                <label for="group-name">Group Name:</label>
+                <input type="text" id="group-name" name="group-name" required>
+
+                <label for="group-type">Group Type:</label>
+                <select id="group-type" name="group-type" required>
+                    <option value="therapy">Therapy</option>
+                    <option value="support">Support</option>
+                    <option value="rehabilitation">Rehabilitation</option>
+                </select>
+
+                <div id="drop-zone" style="margin-top: 10px; padding: 10px; border: 2px dashed #4CAF50; border-radius: 5px;">
+                    Drop patients here to add them to the group
+                </div>
+
+                <button type="submit" class="btn" style="margin-top: 10px;">Create Group</button>
+            </form>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h2>Available Patients</h2>
+            <div id="patient-list" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px; max-height: 300px; overflow-y: auto;">
+                <!-- Patient list will be populated here dynamically -->
+            </div>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h2>Group List</h2>
+            <table id="group-table">
+                <thead>
+                    <tr>
+                        <th>Group Name</th>
+                        <th>Group Type</th>
+                        <th>Patients</th>
+                        <th>Follow-Up</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Group rows will be added dynamically here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+
+<script src="groupmanagement.js"></script>
+<script>
+    // Function to load the patient list from the server
+    function loadPatientList() {
+        fetch('fetch-patients.php')
+            .then(response => response.json())
+            .then(data => {
+                const patientListDiv = document.getElementById('patient-list');
+                patientListDiv.innerHTML = ''; // Clear previous entries
+
+                data.forEach(patient => {
+                    const div = document.createElement('div');
+                    div.textContent = patient.name;
+                    div.setAttribute('draggable', true);
+                    div.classList.add('draggable-patient');
+                    div.dataset.id = patient.id;
+
+                    div.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', JSON.stringify(patient));
+                    });
+
+                    patientListDiv.appendChild(div);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching patients:', error);
+            });
+    }
+
+    // Load the patient list when the page is fully loaded
+    document.addEventListener('DOMContentLoaded', loadPatientList);
+</script>
+
+</body>
+</html>

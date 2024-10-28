@@ -1,34 +1,36 @@
 <?php
-// create_group.php
+include 'db_connection.php'; // Include your database connection file
+
 header('Content-Type: application/json');
-include 'db_connection.php'; // include your database connection file
+$input = json_decode(file_get_contents('php://input'), true);
 
-// Get the JSON data from the request
-$data = json_decode(file_get_contents('php://input'), true);
+$groupName = $input['name'];
+$groupType = $input['type'];
+$patients = $input['patients'];
 
-if (isset($data['name']) && isset($data['type']) && isset($data['patients'])) {
-    $groupName = $data['name'];
-    $groupType = $data['type'];
-    $patients = $data['patients'];
-
-    // Convert the patients array to a string (comma-separated)
-    $patientsString = implode(',', $patients);
-
-    // Insert group into the database
-    $sql = "INSERT INTO groups (name, type, patients) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sss', $groupName, $groupType, $patientsString);
-
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to create group.']);
-    }
-
-    $stmt->close();
-} else {
-    echo json_encode(['success' => false, 'message' => 'Invalid input.']);
+if (!$groupName || !$groupType || empty($patients)) {
+    echo json_encode(['success' => false, 'message' => 'Invalid input']);
+    exit;
 }
 
+// Insert group into the database
+$stmt = $conn->prepare("INSERT INTO groups (name, type) VALUES (?, ?)");
+$stmt->bind_param("ss", $groupName, $groupType);
+if ($stmt->execute()) {
+    $groupId = $stmt->insert_id;
+    $stmt->close();
+
+    // Insert patients into the group
+    $stmt = $conn->prepare("INSERT INTO group_patients (group_id, patient_id) VALUES (?, ?)");
+    foreach ($patients as $patientId) {
+        $stmt->bind_param("ii", $groupId, $patientId);
+        $stmt->execute();
+    }
+    $stmt->close();
+
+    echo json_encode(['success' => true]);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Failed to create group']);
+}
 $conn->close();
 ?>
