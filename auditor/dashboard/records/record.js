@@ -18,8 +18,8 @@ function populatePatientSelect(patients) {
 
     patients.forEach(patient => {
         const option = document.createElement('option');
-        option.value = patient.id;
-        option.textContent = `${patient.first_name} ${patient.last_name}`;
+        option.value = patient.username; // Assuming patient name is the identifier
+        option.textContent = patient.username;
         select.appendChild(option);
     });
 }
@@ -29,8 +29,8 @@ function populateTherapistSelect(therapists) {
     const select = document.getElementById('therapist-select');
     therapists.forEach(therapist => {
         const option = document.createElement('option');
-        option.value = therapist.name;
-        option.textContent = therapist.name;
+        option.value = therapist.username;
+        option.textContent = therapist.username;
         select.appendChild(option);
     });
 }
@@ -39,12 +39,12 @@ function populateTherapistSelect(therapists) {
 document.getElementById('patient-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const patientId = document.getElementById('patient-select').value;
-    const therapist = document.getElementById('therapist-select').value;
-    const treatmentType = document.getElementById('treatment-type-select').value;
+    const patientName = document.getElementById('patient-select').value;
+    const therapistName = document.getElementById('therapist-select').value;
 
-    const query = `record.php/api/patient-history/${patientId}?therapist=${therapist}&treatment=${treatmentType}`;
-    
+    // Build the query string for filtering
+    const query = `record.php?patient=${patientName}&therapist=${therapistName}`;
+
     fetch(query)
         .then(response => response.json())
         .then(data => displayPatientHistory(data))
@@ -60,7 +60,7 @@ function displayPatientHistory(history) {
     } else {
         history.forEach(item => {
             const listItem = document.createElement('li');
-            listItem.textContent = `Date: ${item.date}, Treatment: ${item.treatment}, Therapist: ${item.therapist}`;
+            listItem.textContent = `Date: ${item.created_at}, Therapist: ${item.therapist_name}, Case Type: ${item.case_type}, Consultation Length: ${item.consultation_length} minutes`;
             historyList.appendChild(listItem);
         });
     }

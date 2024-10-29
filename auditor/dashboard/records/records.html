@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Auditor Portal</h1>
 
-        <!-- Patient selection form with therapist and treatment type filters -->
+        <!-- Patient selection form with therapist filter -->
         <form id="patient-form" class="form-group">
             <label for="patient-select">Select Patient:</label>
             <select id="patient-select">
@@ -21,15 +21,6 @@
             <select id="therapist-select">
                 <option value="">All</option>
                 <!-- Therapist options will be dynamically populated -->
-            </select>
-
-            <label for="treatment-type-select">Select Treatment Type (optional):</label>
-            <select id="treatment-type-select">
-                <option value="">All</option>
-                <option value="Physical Therapy">Physical Therapy</option>
-                <option value="Surgery">Surgery</option>
-                <option value="Counseling">Counseling</option>
-                <!-- Additional treatment types can be added -->
             </select>
 
             <button type="submit">View History</button>

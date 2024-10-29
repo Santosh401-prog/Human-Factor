@@ -64,16 +64,16 @@ main section {
 
 footer {
     text-align: center;
-    padding: 10px;
-    background-color:  #4CAF50;
-    color: rgb(9, 8, 8);
-    position: fixed;
-    width: 100%;
+    padding: 20px 0;
+    background-color: #f1f1f1;
+    color: #777;
+    position: relative;
     bottom: 0;
-    left: 0;
-    margin-left: 250px;
+    width: 100%;
+    border-top: 1px solid #ddd;
 }
 
 footer p {
     margin: 0;
+    font-size: 1em;
 }
