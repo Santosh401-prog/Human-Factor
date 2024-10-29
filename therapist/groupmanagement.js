@@ -1,102 +1,96 @@
-
-    const patientListDiv = document.getElementById('patient-list');
-    const dropZone = document.getElementById('drop-zone');
-    const groupForm = document.getElementById('group-form');
-    const groupTableBody = document.querySelector('#group-table tbody');
-    let selectedPatients = [];
-
-
-    dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.style.backgroundColor = '#e0f7fa';
-    });//
-
-    dropZone.addEventListener('dragleave', () => {
-        dropZone.style.backgroundColor = '#f9f9f9';
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.style.backgroundColor = '#f9f9f9';
-
-        const patientName = e.dataTransfer.getData('text/plain');
-        if (!selectedPatients.includes(patientName)) {
-            selectedPatients.push(patientName);
-        }
-
-        dropZone.textContent = selectedPatients.join(', ');
-    });
-
-    function addGroupToTable(groupName, groupType, selectedPatients) {
-        const row = document.createElement('tr');
-        const patientsText = selectedPatients.join(', ');
-        row.innerHTML = `
-            <td>${groupName}</td>
-            <td>${groupType}</td>
-            <td>${patientsText}</td>
-            <td><input type="checkbox" class="follow-up-checkbox"></td>
-            <td><button class="delete-btn">Delete</button></td>
-        `;
-
-        const followUpCheckbox = row.querySelector('.follow-up-checkbox');
-        followUpCheckbox.addEventListener('change', function () {
-            if (followUpCheckbox.checked) {
-                row.classList.add('follow-up');
-            } else {
-                row.classList.remove('follow-up');
-            }
-        });
-
-        row.querySelector('.delete-btn').addEventListener('click', function () {
-            row.remove();
-        });
-
-        groupTableBody.appendChild(row);
-    }
-
-    groupForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const groupName = document.getElementById('group-name').value;
-    const groupType = document.getElementById('group-type').value;
-
-    if (selectedPatients.length > 0) {
-        // Prepare data to send
-        const groupData = {
-            name: groupName,
-            type: groupType,
-            patients: selectedPatients
-        };
-
-        // Send data to the server
-        fetch('therapist/create_group.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(groupData)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                addGroupToTable(groupName, groupType, selectedPatients);
-                groupForm.reset();
-                selectedPatients = [];
-                dropZone.textContent = 'Drop patients here to add them to the group';
-            } else {
-                alert('Failed to create group: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            alert('An error occurred while creating the group. Please try again.');
-        });
-    } else {
-        alert('Please drag and drop at least one patient into the group.');
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    loadPatientList();
 });
 
+function loadPatientList() {
+    fetch('fetch-patients.php')
+        .then(response => response.json())
+        .then(data => populatePatientList(data))
+        .catch(error => console.error('Error fetching patients:', error));
+}
+
+function populatePatientList(patients) {
+    const patientListDiv = document.getElementById('patient-list');
+    patientListDiv.innerHTML = '';
+
+    patients.forEach(patient => {
+        const patientDiv = document.createElement('div');
+        patientDiv.textContent = patient.name;
+        patientDiv.setAttribute('draggable', true);
+        patientDiv.classList.add('draggable-patient');
+        patientDiv.dataset.id = patient.id;
+
+        patientDiv.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text', JSON.stringify({ id: patient.id, name: patient.name }));
+        });
+
+        patientListDiv.appendChild(patientDiv);
+    });
+}
+
+const dropZone = document.getElementById('drop-zone');
+const selectedPatients = [];
+
+dropZone.addEventListener('dragover', (e) => e.preventDefault());
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const patient = JSON.parse(e.dataTransfer.getData('text'));
+    if (!selectedPatients.find(p => p.id === patient.id)) {
+        selectedPatients.push(patient);
+    }
+    dropZone.textContent = selectedPatients.map(p => p.name).join(', ');
+});
+
+document.getElementById('group-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const groupName = document.getElementById('group-name').value;
+    const groupType = document.getElementById('group-type').value;
+    
+    if (selectedPatients.length === 0) {
+        alert('Please add at least one patient.');
+        return;
+    }
+
+    const groupData = {
+        name: groupName,
+        type: groupType,
+        patients: selectedPatients.map(p => p.id)
+    };
+
+    fetch('create_group.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(groupData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Group created successfully');
+            addGroupToTable(groupName, groupType, selectedPatients);
+        } else {
+            alert('Error creating group');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+function addGroupToTable(name, type, patients) {
+    const groupTableBody = document.querySelector('#group-table tbody');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${name}</td>
+        <td>${type}</td>
+        <td>${patients.map(p => p.name).join(', ')}</td>
+        <td><button onclick="addNotes()">Add Notes</button></td>
+        <td><button onclick="deleteGroup(this)">Delete</button></td>
+    `;
+    groupTableBody.appendChild(row);
+}
+
+function deleteGroup(button) {
+    const row = button.parentNode.parentNode;
+    row.remove();
+}

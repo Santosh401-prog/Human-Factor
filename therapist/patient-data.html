@@ -5,87 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Data</title>
     <link rel="stylesheet" href="therapist.css">
-    <style>
-        /* Table and Modal Styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .view-btn, .add-note-btn {
-            background-color: #2196F3;
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .view-btn:hover, .add-note-btn:hover {
-            background-color: #1976D2;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.4);
-            overflow: auto;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
-            border-radius: 10px;
-        }
-
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close-btn:hover {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Form Styles */
-        .modal textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        .modal button {
-            margin-top: 10px;
-        }
-    </style>
 </head>
 <body>
 
@@ -96,8 +15,8 @@
 <div class="sidebar">
     <ul>
         <li><a href="therapistdashboard.html">Dashboard</a></li>
-        <li><a href="patient-data.html">Patient Summary</a></li>
-        <li><a href="group-management.html">Group Management</a></li>
+        <li><a href="patientdata.html">Patient Summary</a></li>
+        <li><a href="groupmanagement.html">Group Management</a></li>
     </ul>
 </div>
 
@@ -119,31 +38,9 @@
                 </tbody>
             </table>
         </section>
-
-        <!-- Modal for viewing patient details -->
-        <div id="patient-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn">&times;</span>
-                <h2 id="modal-patient-name"></h2>
-                <p><strong>Age:</strong> <span id="modal-patient-age"></span></p>
-                <p><strong>Mood:</strong> <span id="modal-patient-mood"></span></p>
-                <p><strong>Sleep Duration:</strong> <span id="modal-patient-sleep"></span> hours</p>
-                <p><strong>Exercise:</strong> <span id="modal-patient-exercise"></span></p>
-                <p><strong>Other Activities:</strong> <span id="modal-patient-activities"></span></p>
-            </div>
-        </div>
-
-        <!-- Modal for adding patient notes -->
-        <div id="note-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-note-btn">&times;</span>
-                <h2>Add Note for <span id="note-patient-name"></span></h2>
-                <textarea id="patient-note" placeholder="Enter note"></textarea>
-                <button id="save-note-btn">Save Note</button>
-            </div>
-        </div>
     </main>
 </div>
+
 <script src="patientdata.js"></script>
 </body>
 </html>
