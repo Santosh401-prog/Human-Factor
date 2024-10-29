@@ -24,15 +24,10 @@ try {
 // Fetch journal entries for the logged-in patient
 $patient_name = $_SESSION['patient_name'];
 
-// Debug the session data to see if the patient_name is correct
-var_dump($patient_name);
-
-$stmt = $pdo->prepare("SELECT * FROM journal_entries WHERE patient_name = ? ORDER BY entry_date DESC");
+$stmt = $pdo->prepare("SELECT entry_date, mood, sleep_hours, eating_habit, exercise_minutes, journal_text, created_at 
+                       FROM journal_entries WHERE patient_name = ? ORDER BY entry_date DESC");
 $stmt->execute([$patient_name]);
 $journal_entries = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Debug the journal entries to see what is being fetched
-var_dump($journal_entries);
 
 // Send the result as a JSON response
 if ($journal_entries) {
@@ -40,4 +35,3 @@ if ($journal_entries) {
 } else {
     echo json_encode(['error' => 'No journal entries found']);
 }
-?>

@@ -56,3 +56,16 @@ ALTER TABLE appointments ADD therapist_id INT;
 -- Ensure therapist is available for the appointment
 ALTER TABLE appointments
 ADD FOREIGN KEY (therapist_id) REFERENCES therapists(id) ON DELETE SET NULL;
+
+
+CREATE TABLE journal_entries (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(11),
+    entry_date DATE,
+    mood VARCHAR(50),
+    sleep_duration INT(2),
+    eating_habit VARCHAR(50),
+    exercise_minutes INT(3),
+    journal_text TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

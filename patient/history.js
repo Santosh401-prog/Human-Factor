@@ -3,16 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchJournalEntries() {
-    fetch('./history.php')  // Ensure this is pointing to the correct PHP file
+    fetch('./history.php')
         .then(response => response.json())
         .then(data => {
-            console.log(data); // Log the data returned from the PHP backend
-
             if (data.error) {
-                alert(data.error);  // Show an error if it exists
+                alert(data.error);
             } else {
                 const journalHistoryBody = document.getElementById('journal-history-body');
-                journalHistoryBody.innerHTML = '';  // Clear previous entries
+                journalHistoryBody.innerHTML = ''; // Clear previous entries
 
                 // Populate the table with journal entries
                 data.forEach(entry => {
@@ -20,7 +18,7 @@ function fetchJournalEntries() {
                         <tr>
                             <td>${entry.entry_date}</td>
                             <td>${entry.mood}</td>
-                            <td>${entry.sleep_hours}</td>
+                            <td>${entry.sleep_duration}</td>
                             <td>${entry.eating_habit}</td>
                             <td>${entry.exercise_minutes}</td>
                             <td>${entry.journal_text}</td>
