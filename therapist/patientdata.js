@@ -1,5 +1,5 @@
 function fetchPatients() {
-    fetch('fetch-patients.php')
+    fetch('fetch_patients.php')
         .then(response => response.json())
         .then(data => populatePatientTable(data))
         .catch(error => console.error('Error fetching patients:', error));
