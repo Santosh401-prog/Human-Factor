@@ -22,3 +22,11 @@ CREATE TABLE audit_records (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE SET NULL
 );
+
+
+CREATE TABLE group_notes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    group_name VARCHAR(255) NOT NULL,
+    note TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
